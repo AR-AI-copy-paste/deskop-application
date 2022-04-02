@@ -1,0 +1,43 @@
+{
+  "name": "deskop-application",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "This is CopyCat's Desktop Application",
+  "scripts": {
+    "build": "electron-snowpack build",
+    "clean": "electron-snowpack clean",
+    "dev": "electron-snowpack dev",
+    "dist": "electron-builder",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "open": "open dist/mac/${npm_package_name}.app",
+    "try": "run-s clean build dist:dir open       WILL NOT WORK UNLESS npm-run-all installed as devDependency"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AR-AI-copy-paste/deskop-application.git"
+  },
+  "author": "Khalil Selyan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AR-AI-copy-paste/deskop-application/issues"
+  },
+  "homepage": "https://github.com/AR-AI-copy-paste/deskop-application#readme",
+  "dependencies": {
+    "electron-snowpack": "^0.12.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-react-refresh": "^2.5.0",
+    "@types/snowpack-env": "^2.3.4",
+    "autoprefixer": "^10.4.4",
+    "electron": "^18.0.1",
+    "electron-builder": "^22.14.13",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.6.3"
+  },
+  "build": {
+    "extends": "electron-snowpack/config/electron-builder.js"
+  }
+}
