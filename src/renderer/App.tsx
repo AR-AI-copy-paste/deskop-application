@@ -1,10 +1,14 @@
 import React from "react";
+import MainPage from "./MainPage";
+import SideBar from "./SideBar";
 
-// import logo from "./logo.svg";
-import "./App.css";
-
-const App: React.FC = () => {
-  return <div className="App">Peepee poopoo</div>;
+const App = () => {
+  return (
+    <div id="root" className="flex flex-row">
+      <SideBar />
+      <MainPage />
+    </div>
+  );
 };
 
 export default App;

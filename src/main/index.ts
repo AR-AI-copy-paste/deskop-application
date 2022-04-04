@@ -1,20 +1,30 @@
-import { app, BrowserWindow, Menu, Tray } from "electron";
+import { app, BrowserWindow, Menu, Tray, nativeImage } from "electron";
 import { getAssetURL } from "electron-snowpack";
+import path from "path";
 
 let mainWindow: BrowserWindow | null | undefined;
-let tray = null;
+let appIcon = null;
+let iconPath = path.join(__dirname, "../../src/assets/cat.ico");
+
+let smallIcon = nativeImage.createFromPath(iconPath);
+smallIcon.resize({ width: 16, height: 16 });
 
 function createMainWindow(): BrowserWindow {
-  const window = new BrowserWindow();
-
+  const window = new BrowserWindow({
+    width: 800,
+    height: 600,
+    show: false,
+    frame: false,
+  });
+  window.setIcon(iconPath);
   if (process.env.MODE !== "production") {
-    window.webContents.openDevTools();
+    // window.webContents.openDevTools();
   }
 
   window.loadURL(getAssetURL("index.html"));
 
   window.on("closed", (): void => {
-    mainWindow = null;
+    mainWindow.hide();
   });
 
   window.webContents.on("devtools-opened", (): void => {
@@ -45,18 +55,51 @@ app.on("activate", (): void => {
 // create main BrowserWindow when electron is ready
 app.on("ready", (): void => {
   mainWindow = createMainWindow();
+  createdSystemTray();
 });
 
-app.whenReady().then(() => {
-  tray = new Tray("./caticon.png");
-  const contextMenu = Menu.buildFromTemplate([
-    { label: "Item1", type: "radio" },
-    { label: "Item2", type: "radio" },
-    { label: "Item3", type: "radio", checked: true },
-    { label: "Item4", type: "radio" },
+const createdSystemTray = (): void => {
+  appIcon = new Tray(iconPath);
+
+  var contextMenu = Menu.buildFromTemplate([
+    {
+      label: "🖼 Gallery",
+      click: function () {
+        console.log("Gallery");
+      },
+    },
+    {
+      label: "Calibrate",
+      click: function () {
+        console.log("Calibrate coordinates");
+      },
+    },
+    {
+      label: "⚙️ Settings",
+      click: function () {
+        console.log("Settings");
+      },
+    },
+    {
+      label: "ℹ️ About",
+      click: function () {
+        console.log("About us");
+      },
+    },
+    {
+      label: "Quit",
+      accelerator: "Command+Q",
+      click: function () {
+        app.quit();
+      },
+    },
   ]);
-  tray.setToolTip("This is my application.");
-  tray.setContextMenu(contextMenu);
-});
+  appIcon.setToolTip("CopyCat");
+  appIcon.setContextMenu(contextMenu);
+
+  appIcon.on("click", () => {
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+  });
+};
 
 app.commandLine.appendSwitch("no-sandbox");
