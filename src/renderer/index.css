@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .card-dark-bg {
+    @apply bg-gray-800;
+  }
+  .card-light-bg {
+    @apply bg-gray-100;
+  }
+  .card-gradient-bg {
+    @apply bg-gradient-to-b from-green-400 to-green-800;
+  }
+}
