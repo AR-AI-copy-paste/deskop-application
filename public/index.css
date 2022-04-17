@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;500;600;700&display=swap");
+
+.card-light-bg {
+  @apply bg-gray-100;
+}
+.card-dark-bg {
+  @apply bg-gray-600;
+}
+.app-dark-bg {
+  @apply bg-gray-700;
+}
+.app-light-bg {
+  @apply bg-gray-200;
+}
+.sidebar-dark-bg {
+  @apply bg-gray-800;
+}
+.sidebar-light-bg {
+  @apply bg-gray-300;
+}
+
+.draggableText {
+  -webkit-app-region: drag;
+}
