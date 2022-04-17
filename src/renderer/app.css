@@ -1,0 +1,29 @@
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  overflow: scroll;
+  user-select: none;
+}
+
+.sidebar {
+  width: 256px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.main {
+  position: relative;
+  margin-left: 275px;
+  right: 0;
+}
