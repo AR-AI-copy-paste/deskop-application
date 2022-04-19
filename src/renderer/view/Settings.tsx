@@ -6,7 +6,7 @@ import { settingsTypeState, colorSchemeState, resolutionState } from "../atoms";
 
 const resolutions = {
   widths: [1920, 1300, 800],
-  heights: [1080, 700, 600],
+  heights: [920, 820, 600],
 };
 function Settings() {
   const [settingsType, setSettingsType] = useRecoilState(settingsTypeState);
@@ -152,7 +152,7 @@ function Settings() {
                 className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
                 onClick={() => {
                   // setTimeout(() => {
-                  setResolution({ width: 1920, height: 1080 });
+                  setResolution({ width: 1920, height: 920 });
                   // }, 500);
                   appRuntime.send("window-resize", {
                     width: resolution.width,
@@ -166,7 +166,7 @@ function Settings() {
                 className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
                 onClick={() => {
                   // setTimeout(() => {
-                  setResolution({ width: 1300, height: 700 });
+                  setResolution({ width: 1300, height: 820 });
                   // }, 500);
                   appRuntime.send("window-resize", {
                     width: resolution.width,

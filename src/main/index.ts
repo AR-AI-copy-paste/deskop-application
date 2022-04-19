@@ -8,6 +8,7 @@ import {
   dialog,
   shell,
 } from "electron";
+import fs from "fs";
 import { download } from "electron-dl";
 import { getAssetURL } from "electron-snowpack";
 import path from "path";
@@ -26,7 +27,7 @@ smallIcon.resize({ width: 16, height: 16 });
 function createMainWindow(): BrowserWindow {
   const window = new BrowserWindow({
     width: 1300,
-    height: 700,
+    height: 820,
     show: false,
     resizable: false,
     transparent: true,
@@ -35,13 +36,8 @@ function createMainWindow(): BrowserWindow {
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
-    // frame: false,
+    frame: false,
     titleBarStyle: "hidden",
-    // titleBarOverlay: {
-    //   color: "#384151",
-    //   symbolColor: "#f4f4f4",
-    //   height: 30,
-    // },
   });
   window.setIcon(iconPath);
   window.setTitle("CopyCat");
@@ -170,38 +166,126 @@ ipcMain.on("close-window", function () {
   // app.exit();
 });
 
-ipcMain.on("download", async (event, { payload }) => {
-  const dialogs = dialog;
-  let properties = payload.properties ? { ...payload.properties } : {};
-  const defaultPath = app.getPath(
-    properties.directory ? properties.directory : "Downloads"
-  );
-  const defaultFileName = properties.defaultFileName
-    ? properties.defaultFileName
-    : payload.url.split("?")[0].split("/").pop();
-  let customURL = dialogs.showSaveDialogSync({
-    defaultPath: `${defaultPath}/${defaultFileName}`,
-  });
+ipcMain.on("will-download", async (event, payload) => {
+  // create a download folder if it doesn't exist
+  const downloadFolder = path.join(app.getPath("downloads"), "CopyCat");
+  if (!fs.existsSync(downloadFolder)) {
+    fs.mkdirSync(downloadFolder);
+  }
 
-  if (customURL) {
-    let filePath = customURL.split("/");
-    let fileName = `${filePath.pop()}`;
-    let directory = filePath.join("/");
-    properties = { ...properties, directory, fileName };
-    // mainWindow.webContents.downloadURL(payload.url);
-    await download(BrowserWindow.getFocusedWindow(), payload.url, {
-      ...properties,
-      onProgress: (progress) => {
-        mainWindow.webContents.send("download-progress", progress);
-      },
-      onCompleted: (item) => {
-        mainWindow.webContents.send("download-completed", item);
-      },
+  console.log("will-download", payload);
+  const result = await dialog.showMessageBox({
+    type: "question",
+    buttons: ["Yes", "No"],
+    defaultId: 0,
+    cancelId: 1,
+    title: "Download",
+    message: `Do you want to download this Image?`,
+  });
+  const currentDate = new Date();
+  const currentDayofMonth = currentDate.getDate();
+  const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
+  const currentYear = currentDate.getFullYear();
+  const currentHours = currentDate.getHours();
+  const currentMinutes = currentDate.getMinutes();
+  const currentSeconds = currentDate.getSeconds();
+  const dateString =
+    currentDayofMonth +
+    "-" +
+    (currentMonth + 1) +
+    "-" +
+    currentYear +
+    " " +
+    currentHours +
+    "-" +
+    currentMinutes +
+    "-" +
+    currentSeconds;
+
+  const filename = "CopyCat-" + dateString;
+
+  if (result.response === 0) {
+    event.sender.send("download-accepted", payload);
+    ipcMain.on("download", async (event, payload) => {
+      await download(BrowserWindow.getFocusedWindow(), payload.url, {
+        filename: filename + ".jpg",
+        directory: downloadFolder,
+        onProgress: (progress) => {
+          console.log(progress);
+        },
+      });
     });
   } else {
-    console.log("No file selected");
-    // Save Cancelled
+    dialog.showMessageBox({
+      type: "info",
+      title: "Download Canceled",
+      message: `The download was canceled`,
+    });
   }
 });
 
+// mainWindow.webContents.session.on(
+//   "will-download",
+//   async (event, item, webContents) => {
+//     const dialogs = dialog;
+//     let customURL = dialogs.showSaveDialogSync({
+//       title: "Save Your Image",
+//       buttonLabel: "Save",
+//       filters: [
+//         {
+//           name: "images",
+//           extensions: ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg"],
+//         },
+//         {
+//           name: "All Files",
+//           extensions: ["*"],
+//         },
+//       ],
+//     });
+
+//     if (customURL) {
+//       item.setSavePath(customURL);
+//       item.on("updated", (event, state) => {
+//         if (state === "interrupted") {
+//           console.log("Download is interrupted but can be resumed");
+//         } else if (state === "progressing") {
+//           if (item.isPaused()) {
+//             console.log("Download is paused");
+//           } else {
+//             console.log(`Received bytes: ${item.getReceivedBytes()}`);
+//           }
+//         }
+//       });
+//       item.once("done", (event, state) => {
+//         if (state === "completed") {
+//           console.log("Download successfully");
+//           shell.openPath(item.getSavePath());
+//         } else {
+//           console.log(`Download failed: ${state}`);
+//         }
+//       });
+//     } else {
+//       item.setSavePath("documents/downloads/" + item.getFilename());
+
+//       item.on("updated", (event, state) => {
+//         if (state === "interrupted") {
+//           console.log("Download is interrupted but can be resumed");
+//         } else if (state === "progressing") {
+//           if (item.isPaused()) {
+//             console.log("Download is paused");
+//           } else {
+//             console.log(`Received bytes: ${item.getReceivedBytes()}`);
+//           }
+//         }
+//       });
+//       item.once("done", (event, state) => {
+//         if (state === "completed") {
+//           console.log("Download successfully");
+//         } else {
+//           console.log(`Download failed: ${state}`);
+//         }
+//       });
+//     }
+//   }
+// );
 app.commandLine.appendSwitch("no-sandbox");

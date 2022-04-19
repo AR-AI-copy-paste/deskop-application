@@ -16,17 +16,24 @@ const PopupModal = (props) => {
   );
   const [colorScheme, setColorScheme] = useRecoilState(colorSchemeState);
 
-  const onDownload = (url, fileName, directory) => {
-    appRuntime.send("download", {
-      payload: {
+  const onDownload = (
+    url: string,
+    urlShort: string,
+    fileName: string,
+    directory: string
+  ) => {
+    appRuntime.send("will-download", { url, fileName, directory });
+    appRuntime.subscribe("download-accepted", (progress) => {
+      appRuntime.send("download", {
         url,
-        properties: {
-          fileName,
-          directory,
-        },
-      },
+        urlShort,
+        fileName,
+        directory,
+        progress,
+      });
     });
   };
+
   return (
     <Popup
       arrow={false}
@@ -60,15 +67,20 @@ const PopupModal = (props) => {
           }}
           className=" p-1 m-1 cursor-pointer"
         >
-          View full size
+          View in full size
         </span>
         <span
           onClick={() => {
-            onDownload(props.link, "imagewow", "downloads");
+            onDownload(
+              props.link,
+              props.link.split("/").pop(),
+              "downloadedImage",
+              "downloads/Copycat"
+            );
           }}
           className=" p-1 m-1 cursor-pointer"
         >
-          Download
+          Download Image
         </span>
         <span className=" p-1 m-1 cursor-pointer">Fork Image</span>
       </div>
