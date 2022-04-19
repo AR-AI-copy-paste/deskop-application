@@ -30,7 +30,7 @@ function AboutSection({
           colorScheme === "light"
             ? "bg-gray-100"
             : colorScheme === "dark"
-            ? "bg-gray-700"
+            ? "bg-gray-600"
             : colorScheme === "ocean"
             ? "bg-blueSapphire"
             : colorScheme === "DanahPurple"

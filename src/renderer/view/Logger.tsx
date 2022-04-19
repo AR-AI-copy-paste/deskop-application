@@ -34,7 +34,7 @@ function Logger() {
                 : ""
             } rounded-md shadow-md `}
           >
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-row justify-center items-center draggableText">
               <img src={catLogo} alt="cat logo" className="w-8 h-auto" />
               <h1
                 className={`ml-4 text-4xl font-mono font-semibold text-center ${
