@@ -30,6 +30,14 @@ function About() {
             ? "bg-blueSapphire text-gray-300"
             : colorScheme === "DanahPurple"
             ? "bg-danahLightBlue text-gray-500"
+            : colorScheme === "PeacockGreen"
+            ? "bg-peacockGreen text-gray-500"
+            : colorScheme === "PekiDawn"
+            ? "bg-dawnSalmon text-gray-500"
+            : colorScheme === "MidnightDark"
+            ? "bg-midnightBlue text-gray-500"
+            : colorScheme === "BlackYellow"
+            ? "bg-pekiYellow text-gray-500"
             : ""
         }  p-12 my-4 mx-8`}
       >
@@ -58,6 +66,14 @@ function About() {
               ? "bg-pewterBlue"
               : colorScheme === "DanahPurple"
               ? "bg-danahPurple"
+              : colorScheme === "PeacockGreen"
+              ? "bg-lighterGreen"
+              : colorScheme === "PekiDawn"
+              ? "bg-dawnOrange"
+              : colorScheme === "MidnightDark"
+              ? "bg-midnightGrey"
+              : colorScheme === "BlackYellow"
+              ? "bg-pekiBlack"
               : ""
           } `}
         />

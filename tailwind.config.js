@@ -26,6 +26,7 @@ module.exports = {
         airSuperiorityBlue: "#6e9bb1",
         blueGreen: "#5d93ab",
         peacockGreen: "#54dea0",
+        lighterGreen: "#53c290",
         pekiYellow: "#ffd42a",
         pekiBlack: "#434242",
         midnightGrey: "#393e46",

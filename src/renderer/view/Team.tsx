@@ -10,10 +10,16 @@ function Team() {
         className={`mx-8 p-2 text-xl font-baloo ${
           colorScheme === "dark" ||
           colorScheme === "light" ||
-          colorScheme === "DanahPurple"
+          colorScheme === "DanahPurple" ||
+          colorScheme === "PeacockGreen" ||
+          colorScheme === "PekiDawn"
             ? "text-slate-500"
             : colorScheme === "ocean"
             ? "text-darkCornflowerBlue"
+            : colorScheme === "MidnightDark"
+            ? "text-midnightBlue"
+            : colorScheme === "BlackYellow"
+            ? "text-pekiYellow"
             : ""
         } underline-offset-2 underline`}
       >

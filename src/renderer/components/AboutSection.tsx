@@ -35,6 +35,14 @@ function AboutSection({
             ? "bg-blueSapphire"
             : colorScheme === "DanahPurple"
             ? "bg-danahLightBlue"
+            : colorScheme === "PekiDawn"
+            ? "bg-dawnSalmon"
+            : colorScheme === "PeacockGreen"
+            ? "bg-lighterGreen"
+            : colorScheme === "MidnightDark"
+            ? "bg-midnightBlue"
+            : colorScheme === "BlackYellow"
+            ? "bg-pekiYellow"
             : ""
         }  p-2 my-4 mx-8`}
       >
@@ -86,13 +94,23 @@ function AboutSection({
                   aria-label="Twitter"
                 >
                   <svg
-                    class={`w-5 h-5 ${
+                    className={`w-5 h-5 ${
                       colorScheme === "light"
                         ? "text-gray-700 hover:text-gray-600"
                         : colorScheme === "dark"
                         ? "text-gray-200 hover:text-gray-400"
                         : colorScheme === "ocean"
                         ? "text-gray-300 hover:text-gray-400"
+                        : colorScheme === "MidnightDark"
+                        ? "text-midnightGrey hover:text-gray-400"
+                        : colorScheme === "BlackYellow"
+                        ? "text-pekiBlack hover:text-gray-100"
+                        : colorScheme === "PeacockGreen"
+                        ? "text-gray-100 hover:text-peacockGreen"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple hover:text-gray-100"
+                        : colorScheme === "PekiDawn"
+                        ? "text-dawnOrange hover:text-gray-100"
                         : ""
                     }  fill-current `}
                     xmlns="http://www.w3.org/2000/svg"
@@ -110,13 +128,23 @@ function AboutSection({
                   aria-label="Facebook"
                 >
                   <svg
-                    class={`w-5 h-5 ${
+                    className={`w-5 h-5 ${
                       colorScheme === "light"
                         ? "text-gray-700 hover:text-gray-600"
                         : colorScheme === "dark"
                         ? "text-gray-200 hover:text-gray-400"
                         : colorScheme === "ocean"
                         ? "text-gray-300 hover:text-gray-400"
+                        : colorScheme === "MidnightDark"
+                        ? "text-midnightGrey hover:text-gray-400"
+                        : colorScheme === "BlackYellow"
+                        ? "text-pekiBlack hover:text-gray-100"
+                        : colorScheme === "PeacockGreen"
+                        ? "text-gray-100 hover:text-peacockGreen"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple hover:text-gray-100"
+                        : colorScheme === "PekiDawn"
+                        ? "text-dawnOrange hover:text-gray-100"
                         : ""
                     }  fill-current `}
                     xmlns="http://www.w3.org/2000/svg"
@@ -134,13 +162,23 @@ function AboutSection({
                   aria-label="Linkedin"
                 >
                   <svg
-                    class={`w-5 h-5 ${
+                    className={`w-5 h-5 ${
                       colorScheme === "light"
                         ? "text-gray-700 hover:text-gray-600"
                         : colorScheme === "dark"
                         ? "text-gray-200 hover:text-gray-400"
                         : colorScheme === "ocean"
                         ? "text-gray-300 hover:text-gray-400"
+                        : colorScheme === "MidnightDark"
+                        ? "text-midnightGrey hover:text-gray-400"
+                        : colorScheme === "BlackYellow"
+                        ? "text-pekiBlack hover:text-gray-100"
+                        : colorScheme === "PeacockGreen"
+                        ? "text-gray-100 hover:text-peacockGreen"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple hover:text-gray-100"
+                        : colorScheme === "PekiDawn"
+                        ? "text-dawnOrange hover:text-gray-100"
                         : ""
                     }  fill-current `}
                     xmlns="http://www.w3.org/2000/svg"
@@ -158,13 +196,23 @@ function AboutSection({
                   aria-label="Github"
                 >
                   <svg
-                    class={`w-5 h-5 ${
+                    className={`w-5 h-5 ${
                       colorScheme === "light"
                         ? "text-gray-700 hover:text-gray-600"
                         : colorScheme === "dark"
                         ? "text-gray-200 hover:text-gray-400"
                         : colorScheme === "ocean"
                         ? "text-gray-300 hover:text-gray-400"
+                        : colorScheme === "MidnightDark"
+                        ? "text-midnightGrey hover:text-gray-400"
+                        : colorScheme === "BlackYellow"
+                        ? "text-pekiBlack hover:text-gray-100"
+                        : colorScheme === "PeacockGreen"
+                        ? "text-gray-100 hover:text-peacockGreen"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple hover:text-gray-100"
+                        : colorScheme === "PekiDawn"
+                        ? "text-dawnOrange hover:text-gray-100"
                         : ""
                     }  fill-current `}
                     xmlns="http://www.w3.org/2000/svg"

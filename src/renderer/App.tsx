@@ -59,10 +59,20 @@ const App = () => {
             ? "bg-gray-500 hover:bg-gray-300"
             : colorScheme === "ocean"
             ? "bg-blue-500 hover:bg-blue-600"
+            : colorScheme === "PeacockGreen"
+            ? "bg-green-500 hover:bg-green-600"
+            : colorScheme === "DanahPurple"
+            ? "hover:bg-danahPurple bg-danahLightBlue"
+            : colorScheme === "PekiDawn"
+            ? "bg-dawnSalmon hover:bg-dawnOrange"
+            : colorScheme === "MidnightDark"
+            ? "bg-midnightBlue hover:bg-midnightGrey"
+            : colorScheme === "BlackYellow"
+            ? "bg-pekiYellow hover:bg-pekiBlack"
             : ""
         }  rounded-full p-1 transition-colors duration-200 transform`}
       >
-        <img src={closeIcon} alt="close" className="h-4 w-4" />
+        <img src={closeIcon} alt="close" className="h-4 w-4 text-black" />
       </div>
     </div>
   );
