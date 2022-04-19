@@ -18,12 +18,11 @@ import path from "path";
 
 let mainWindow: BrowserWindow | null | undefined;
 let appIcon = null;
-let iconPath = path.join(__dirname, "../../assets/aaa.png");
-// let iconPath2 = path.join(__dirname, "../../assets/copycat_remade-2.ico");
+// let iconPath2 = path.join(__dirname, "../../assets/catCircle.png");
+let iconPath = path.join(__dirname, "../../assets/copycat_head_remade-2.ico");
 
 let smallIcon = nativeImage.createFromPath(iconPath);
-smallIcon.resize({ width: 32, height: 32 });
-
+// smallIcon.resize({ width: 256, height: 256 });
 function createMainWindow(): BrowserWindow {
   const window = new BrowserWindow({
     width: 1300,

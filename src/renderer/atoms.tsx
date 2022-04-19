@@ -42,7 +42,7 @@ export const settingsTypeState = atom({
 
 export const colorSchemeState = atom({
   key: "colorSchemeState",
-  default: "MidnightDark",
+  default: "light",
 });
 
 export const resolutionState = atom({
