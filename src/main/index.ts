@@ -18,11 +18,11 @@ import path from "path";
 
 let mainWindow: BrowserWindow | null | undefined;
 let appIcon = null;
-let interval;
-let iconPath = path.join(__dirname, "../../assets/copycat_icon.ico");
+let iconPath = path.join(__dirname, "../../assets/aaa.png");
+// let iconPath2 = path.join(__dirname, "../../assets/copycat_remade-2.ico");
 
 let smallIcon = nativeImage.createFromPath(iconPath);
-smallIcon.resize({ width: 16, height: 16 });
+smallIcon.resize({ width: 32, height: 32 });
 
 function createMainWindow(): BrowserWindow {
   const window = new BrowserWindow({
@@ -89,7 +89,7 @@ app.on("ready", (): void => {
 });
 
 const createdSystemTray = (): void => {
-  appIcon = new Tray(iconPath);
+  appIcon = new Tray(smallIcon);
 
   var contextMenu = Menu.buildFromTemplate([
     {
@@ -224,68 +224,4 @@ ipcMain.on("will-download", async (event, payload) => {
   }
 });
 
-// mainWindow.webContents.session.on(
-//   "will-download",
-//   async (event, item, webContents) => {
-//     const dialogs = dialog;
-//     let customURL = dialogs.showSaveDialogSync({
-//       title: "Save Your Image",
-//       buttonLabel: "Save",
-//       filters: [
-//         {
-//           name: "images",
-//           extensions: ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg"],
-//         },
-//         {
-//           name: "All Files",
-//           extensions: ["*"],
-//         },
-//       ],
-//     });
-
-//     if (customURL) {
-//       item.setSavePath(customURL);
-//       item.on("updated", (event, state) => {
-//         if (state === "interrupted") {
-//           console.log("Download is interrupted but can be resumed");
-//         } else if (state === "progressing") {
-//           if (item.isPaused()) {
-//             console.log("Download is paused");
-//           } else {
-//             console.log(`Received bytes: ${item.getReceivedBytes()}`);
-//           }
-//         }
-//       });
-//       item.once("done", (event, state) => {
-//         if (state === "completed") {
-//           console.log("Download successfully");
-//           shell.openPath(item.getSavePath());
-//         } else {
-//           console.log(`Download failed: ${state}`);
-//         }
-//       });
-//     } else {
-//       item.setSavePath("documents/downloads/" + item.getFilename());
-
-//       item.on("updated", (event, state) => {
-//         if (state === "interrupted") {
-//           console.log("Download is interrupted but can be resumed");
-//         } else if (state === "progressing") {
-//           if (item.isPaused()) {
-//             console.log("Download is paused");
-//           } else {
-//             console.log(`Received bytes: ${item.getReceivedBytes()}`);
-//           }
-//         }
-//       });
-//       item.once("done", (event, state) => {
-//         if (state === "completed") {
-//           console.log("Download successfully");
-//         } else {
-//           console.log(`Download failed: ${state}`);
-//         }
-//       });
-//     }
-//   }
-// );
 app.commandLine.appendSwitch("no-sandbox");

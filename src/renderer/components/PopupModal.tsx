@@ -40,7 +40,12 @@ const PopupModal = (props) => {
       trigger={
         <button
           className={`h-7 w-7 rounded-full pb-2 ${
-            colorScheme === "light" ? "text-gray-600" : "text-white"
+            colorScheme === "light" ||
+            colorScheme === "DanahPurple" ||
+            colorScheme === "PeacockGreen" ||
+            colorScheme === "PekiDawn"
+              ? "text-gray-600"
+              : "text-white"
           }`}
         >
           {" "}
@@ -51,10 +56,15 @@ const PopupModal = (props) => {
     >
       <div
         className={`flex flex-col ${
-          colorScheme === "light"
-            ? "bg-gray-100 text-gray-600"
-            : colorScheme === "dark"
-            ? "bg-gray-700 text-gray-100"
+          colorScheme === "light" ||
+          colorScheme === "DanahPurple" ||
+          colorScheme === "PeacockGreen" ||
+          colorScheme === "PekiDawn"
+            ? "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+            : colorScheme === "dark" ||
+              colorScheme === "MidnightDark" ||
+              colorScheme === "BlackYellow"
+            ? "bg-gray-700 text-gray-100 hover:bg-gray-800 hover:text-gray-200"
             : colorScheme === "ocean"
             ? "bg-blueGreen text-white"
             : ""
