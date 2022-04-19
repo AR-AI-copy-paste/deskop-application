@@ -7,8 +7,10 @@ function Team() {
   return (
     <div>
       <h1
-        className={`mx-8 p-2 text-lg ${
-          colorScheme === "dark" || colorScheme === "light"
+        className={`mx-8 p-2 text-xl font-baloo ${
+          colorScheme === "dark" ||
+          colorScheme === "light" ||
+          colorScheme === "DanahPurple"
             ? "text-slate-500"
             : colorScheme === "ocean"
             ? "text-darkCornflowerBlue"

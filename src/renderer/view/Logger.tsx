@@ -20,9 +20,14 @@ function Logger() {
         <div className="flex flex-col w-screen h-screen justify-center items-center">
           <div
             className={`w-full max-w-sm p-6 m-auto ${
-              colorScheme === "light"
+              colorScheme === "light" ||
+              colorScheme === "DanahPurple" ||
+              colorScheme === "PekiDawn" ||
+              colorScheme === "PeacockGreen"
                 ? "bg-gray-100"
-                : colorScheme === "dark"
+                : colorScheme === "dark" ||
+                  colorScheme === "MidnightDark" ||
+                  colorScheme === "BlackYellow"
                 ? "bg-gray-800"
                 : colorScheme === "ocean"
                 ? "bg-blueSapphire"
@@ -33,9 +38,14 @@ function Logger() {
               <img src={catLogo} alt="cat logo" className="w-8 h-auto" />
               <h1
                 className={`ml-4 text-4xl font-mono font-semibold text-center ${
-                  colorScheme === "light"
+                  colorScheme === "light" ||
+                  colorScheme === "DanahPurple" ||
+                  colorScheme === "PekiDawn" ||
+                  colorScheme === "PeacockGreen"
                     ? "text-gray-700"
-                    : colorScheme === "dark"
+                    : colorScheme === "dark" ||
+                      colorScheme === "MidnightDark" ||
+                      colorScheme === "BlackYellow"
                     ? "text-white"
                     : colorScheme === "ocean"
                     ? "text-white"
@@ -51,9 +61,14 @@ function Logger() {
                 <label
                   htmlFor="username"
                   className={`block text-sm ${
-                    colorScheme === "light"
+                    colorScheme === "light" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen"
                       ? "text-gray-800"
-                      : colorScheme === "dark"
+                      : colorScheme === "dark" ||
+                        colorScheme === "MidnightDark" ||
+                        colorScheme === "BlackYellow"
                       ? "text-gray-200"
                       : colorScheme === "ocean"
                       ? "text-pewterBlue"
@@ -66,9 +81,14 @@ function Logger() {
                   type="text"
                   onChange={(e) => setUsername(e.target.value)}
                   className={`block w-full px-4 py-2 mt-2 ${
-                    colorScheme === "light"
+                    colorScheme === "light" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen"
                       ? "text-gray-700 bg-white focus:border-blue-400 "
-                      : colorScheme === "dark"
+                      : colorScheme === "dark" ||
+                        colorScheme === "MidnightDark" ||
+                        colorScheme === "BlackYellow"
                       ? "bg-gray-800 text-gray-300 border-gray-600  focus:border-blue-300"
                       : colorScheme === "ocean"
                       ? "bg-blueSapphire text-white focus:border-blue-300"
@@ -82,9 +102,14 @@ function Logger() {
                   <label
                     htmlFor="password"
                     className={`block text-sm ${
-                      colorScheme === "light"
+                      colorScheme === "light" ||
+                      colorScheme === "DanahPurple" ||
+                      colorScheme === "PekiDawn" ||
+                      colorScheme === "PeacockGreen"
                         ? "text-gray-800"
-                        : colorScheme === "dark"
+                        : colorScheme === "dark" ||
+                          colorScheme === "MidnightDark" ||
+                          colorScheme === "BlackYellow"
                         ? "text-gray-200"
                         : colorScheme === "ocean"
                         ? "text-pewterBlue"
@@ -96,9 +121,14 @@ function Logger() {
                   <a
                     href="#"
                     className={`text-xs ${
-                      colorScheme === "light"
+                      colorScheme === "light" ||
+                      colorScheme === "DanahPurple" ||
+                      colorScheme === "PekiDawn" ||
+                      colorScheme === "PeacockGreen"
                         ? "text-gray-600"
-                        : colorScheme === "dark"
+                        : colorScheme === "dark" ||
+                          colorScheme === "MidnightDark" ||
+                          colorScheme === "BlackYellow"
                         ? "text-gray-400"
                         : colorScheme === "ocean"
                         ? "text-pewterBlue"
@@ -112,9 +142,14 @@ function Logger() {
                 <input
                   type="password"
                   className={`block w-full px-4 py-2 mt-2 ${
-                    colorScheme === "light"
+                    colorScheme === "light" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen"
                       ? "text-gray-700 bg-white focus:border-blue-400 "
-                      : colorScheme === "dark"
+                      : colorScheme === "dark" ||
+                        colorScheme === "MidnightDark" ||
+                        colorScheme === "BlackYellow"
                       ? "bg-gray-800 text-gray-300 border-gray-600  focus:border-blue-300"
                       : colorScheme === "ocean"
                       ? "bg-blueSapphire text-white focus:border-blue-300"
@@ -127,7 +162,13 @@ function Logger() {
                 <button
                   onClick={() => setLogged(true)}
                   className={`w-full px-4 py-2 tracking-wide ${
-                    colorScheme === "light" || colorScheme === "dark"
+                    colorScheme === "light" ||
+                    colorScheme === "dark" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen" ||
+                    colorScheme === "MidnightDark" ||
+                    colorScheme === "BlackYellow"
                       ? "bg-gray-700 hover:bg-gray-600"
                       : colorScheme === "ocean"
                       ? "bg-pewterBlue hover:bg-blueSapphire"
@@ -142,16 +183,25 @@ function Logger() {
             <div className="flex items-center justify-between mt-4">
               <span
                 className={`w-1/5 border-b ${
-                  colorScheme === "dark" ? "border-gray-600" : ""
+                  colorScheme === "dark" ||
+                  colorScheme === "MidnightDark" ||
+                  colorScheme === "BlackYellow"
+                    ? "border-gray-600"
+                    : ""
                 }  lg:w-1/5`}
               ></span>
 
               <a
                 href="#"
                 className={`text-xs text-center ${
-                  colorScheme === "light"
+                  colorScheme === "light" ||
+                  colorScheme === "DanahPurple" ||
+                  colorScheme === "PekiDawn" ||
+                  colorScheme === "PeacockGreen"
                     ? "text-gray-500"
-                    : colorScheme === "dark"
+                    : colorScheme === "dark" ||
+                      colorScheme === "MidnightDark" ||
+                      colorScheme === "BlackYellow"
                     ? "text-gray-400"
                     : ""
                 }  uppercase  hover:underline`}
@@ -161,7 +211,11 @@ function Logger() {
 
               <span
                 className={`w-1/5 border-b ${
-                  colorScheme === "dark" ? "border-gray-400" : ""
+                  colorScheme === "dark" ||
+                  colorScheme === "MidnightDark" ||
+                  colorScheme === "BlackYellow"
+                    ? "border-gray-400"
+                    : ""
                 }  lg:w-1/5`}
               ></span>
             </div>
@@ -195,9 +249,14 @@ function Logger() {
               Don't have an account?{" "}
               <a
                 className={`font-medium ${
-                  colorScheme === "light"
+                  colorScheme === "light" ||
+                  colorScheme === "DanahPurple" ||
+                  colorScheme === "PekiDawn" ||
+                  colorScheme === "PeacockGreen"
                     ? "text-gray-700"
-                    : colorScheme === "dark"
+                    : colorScheme === "dark" ||
+                      colorScheme === "MidnightDark" ||
+                      colorScheme === "BlackYellow"
                     ? "text-gray-200"
                     : colorScheme === "ocean"
                     ? "text-pewterBlue"
@@ -214,9 +273,14 @@ function Logger() {
         <div className="flex flex-col w-screen h-screen justify-center items-center">
           <div
             className={`w-full max-w-sm p-6 m-auto ${
-              colorScheme === "light"
+              colorScheme === "light" ||
+              colorScheme === "DanahPurple" ||
+              colorScheme === "PekiDawn" ||
+              colorScheme === "PeacockGreen"
                 ? "bg-gray-100"
-                : colorScheme === "dark"
+                : colorScheme === "dark" ||
+                  colorScheme === "MidnightDark" ||
+                  colorScheme === "BlackYellow"
                 ? "bg-gray-800"
                 : colorScheme === "ocean"
                 ? "bg-blueSapphire"
@@ -225,9 +289,14 @@ function Logger() {
           >
             <h1
               className={`text-3xl font-semibold text-center ${
-                colorScheme === "light"
+                colorScheme === "light" ||
+                colorScheme === "DanahPurple" ||
+                colorScheme === "PekiDawn" ||
+                colorScheme === "PeacockGreen"
                   ? "text-gray-700"
-                  : colorScheme === "dark"
+                  : colorScheme === "dark" ||
+                    colorScheme === "MidnightDark" ||
+                    colorScheme === "BlackYellow"
                   ? "text-white"
                   : colorScheme === "ocean"
                   ? "text-white"
@@ -243,9 +312,14 @@ function Logger() {
                   <label
                     htmlFor="email"
                     className={`block text-sm ${
-                      colorScheme === "light"
+                      colorScheme === "light" ||
+                      colorScheme === "DanahPurple" ||
+                      colorScheme === "PekiDawn" ||
+                      colorScheme === "PeacockGreen"
                         ? "text-gray-800"
-                        : colorScheme === "dark"
+                        : colorScheme === "dark" ||
+                          colorScheme === "MidnightDark" ||
+                          colorScheme === "BlackYellow"
                         ? "text-gray-200"
                         : colorScheme === "ocean"
                         ? "text-pewterBlue"
@@ -260,9 +334,14 @@ function Logger() {
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
                   className={`block w-full px-4 py-2 mt-2 ${
-                    colorScheme === "light"
+                    colorScheme === "light" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen"
                       ? "text-gray-700 bg-white focus:border-blue-400 "
-                      : colorScheme === "dark"
+                      : colorScheme === "dark" ||
+                        colorScheme === "MidnightDark" ||
+                        colorScheme === "BlackYellow"
                       ? "bg-gray-800 text-gray-300 border-gray-600  focus:border-blue-300"
                       : colorScheme === "ocean"
                       ? "bg-blueSapphire text-white focus:border-blue-300"
@@ -274,9 +353,14 @@ function Logger() {
                 <label
                   htmlFor="username"
                   className={`block text-sm ${
-                    colorScheme === "light"
+                    colorScheme === "light" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen"
                       ? "text-gray-800"
-                      : colorScheme === "dark"
+                      : colorScheme === "dark" ||
+                        colorScheme === "MidnightDark" ||
+                        colorScheme === "BlackYellow"
                       ? "text-gray-200"
                       : colorScheme === "ocean"
                       ? "text-pewterBlue"
@@ -289,9 +373,14 @@ function Logger() {
                   type="text"
                   onChange={(e) => setUsername(e.target.value)}
                   className={`block w-full px-4 py-2 mt-2 ${
-                    colorScheme === "light"
+                    colorScheme === "light" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen"
                       ? "text-gray-700 bg-white focus:border-blue-400 "
-                      : colorScheme === "dark"
+                      : colorScheme === "dark" ||
+                        colorScheme === "MidnightDark" ||
+                        colorScheme === "BlackYellow"
                       ? "bg-gray-800 text-gray-300 border-gray-600  focus:border-blue-300"
                       : colorScheme === "ocean"
                       ? "bg-blueSapphire text-white focus:border-blue-300"
@@ -305,9 +394,14 @@ function Logger() {
                   <label
                     htmlFor="password"
                     className={`block text-sm ${
-                      colorScheme === "light"
+                      colorScheme === "light" ||
+                      colorScheme === "DanahPurple" ||
+                      colorScheme === "PekiDawn" ||
+                      colorScheme === "PeacockGreen"
                         ? "text-gray-800"
-                        : colorScheme === "dark"
+                        : colorScheme === "dark" ||
+                          colorScheme === "MidnightDark" ||
+                          colorScheme === "BlackYellow"
                         ? "text-gray-200"
                         : colorScheme === "ocean"
                         ? "text-pewterBlue"
@@ -321,9 +415,14 @@ function Logger() {
                 <input
                   type="password"
                   className={`block w-full px-4 py-2 mt-2 ${
-                    colorScheme === "light"
+                    colorScheme === "light" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen"
                       ? "text-gray-700 bg-white focus:border-blue-400 "
-                      : colorScheme === "dark"
+                      : colorScheme === "dark" ||
+                        colorScheme === "MidnightDark" ||
+                        colorScheme === "BlackYellow"
                       ? "bg-gray-800 text-gray-300 border-gray-600  focus:border-blue-300"
                       : colorScheme === "ocean"
                       ? "bg-blueSapphire text-white focus:border-blue-300"
@@ -336,7 +435,13 @@ function Logger() {
                 <button
                   onClick={() => setLogged(true)}
                   className={`w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform ${
-                    colorScheme === "light" || colorScheme === "dark"
+                    colorScheme === "light" ||
+                    colorScheme === "dark" ||
+                    colorScheme === "DanahPurple" ||
+                    colorScheme === "PekiDawn" ||
+                    colorScheme === "PeacockGreen" ||
+                    colorScheme === "MidnightDark" ||
+                    colorScheme === "BlackYellow"
                       ? "bg-gray-700 hover:bg-gray-600"
                       : colorScheme === "ocean"
                       ? "bg-blueSapphire hover:bg-cgBlue"
@@ -351,16 +456,25 @@ function Logger() {
             <div className="flex items-center justify-between mt-4">
               <span
                 className={`w-1/5 border-b ${
-                  colorScheme === "dark" ? "border-gray-600" : ""
+                  colorScheme === "dark" ||
+                  colorScheme === "MidnightDark" ||
+                  colorScheme === "BlackYellow"
+                    ? "border-gray-600"
+                    : ""
                 }  lg:w-1/5`}
               ></span>
 
               <a
                 href="#"
                 className={`text-xs text-center ${
-                  colorScheme === "light"
+                  colorScheme === "light" ||
+                  colorScheme === "DanahPurple" ||
+                  colorScheme === "PekiDawn" ||
+                  colorScheme === "PeacockGreen"
                     ? "text-gray-500"
-                    : colorScheme === "dark"
+                    : colorScheme === "dark" ||
+                      colorScheme === "MidnightDark" ||
+                      colorScheme === "BlackYellow"
                     ? "text-gray-400"
                     : colorScheme === "ocean"
                     ? "text-pewterBlue"
@@ -372,7 +486,11 @@ function Logger() {
 
               <span
                 className={`w-1/5 border-b ${
-                  colorScheme === "dark" ? "border-gray-400" : ""
+                  colorScheme === "dark" ||
+                  colorScheme === "MidnightDark" ||
+                  colorScheme === "BlackYellow"
+                    ? "border-gray-400"
+                    : ""
                 } lg:w-1/5`}
               ></span>
             </div>
@@ -406,9 +524,14 @@ function Logger() {
               Already have an account?{" "}
               <a
                 className={`font-medium ${
-                  colorScheme === "light"
+                  colorScheme === "light" ||
+                  colorScheme === "DanahPurple" ||
+                  colorScheme === "PekiDawn" ||
+                  colorScheme === "PeacockGreen"
                     ? "text-gray-700"
-                    : colorScheme === "dark"
+                    : colorScheme === "dark" ||
+                      colorScheme === "MidnightDark" ||
+                      colorScheme === "BlackYellow"
                     ? "text-gray-200"
                     : colorScheme === "ocean"
                     ? "text-pewterBlue"

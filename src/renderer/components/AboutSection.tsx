@@ -33,6 +33,8 @@ function AboutSection({
             ? "bg-gray-700"
             : colorScheme === "ocean"
             ? "bg-blueSapphire"
+            : colorScheme === "DanahPurple"
+            ? "bg-danahLightBlue"
             : ""
         }  p-2 my-4 mx-8`}
       >
@@ -47,6 +49,8 @@ function AboutSection({
                     ? "text-gray-400"
                     : colorScheme === "ocean"
                     ? "text-gray-300"
+                    : colorScheme === "DanahPurple"
+                    ? "text-gray-600"
                     : ""
                 } lg:max-w-md`}
               >

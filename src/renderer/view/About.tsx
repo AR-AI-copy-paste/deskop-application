@@ -4,6 +4,7 @@ import { colorSchemeState } from "../atoms";
 import catLogo from "/catlogo.svg";
 function About() {
   const colorScheme = useRecoilValue(colorSchemeState);
+
   return (
     <div className="flex flex-col p-2 text-sm h-full">
       <h1
@@ -20,13 +21,15 @@ function About() {
         About the App
       </h1>
       <div
-        class={`h-full flex flex-row items-center border border-gray-600 rounded-3xl max-w-full text-lg ${
+        className={`h-full flex flex-row justify-center items-center border border-gray-600 rounded-3xl max-w-full text-lg ${
           colorScheme === "light"
             ? "bg-gray-100 text-gray-500"
             : colorScheme === "dark"
             ? "bg-gray-600 border-gray-500 text-gray-400"
             : colorScheme === "ocean"
             ? "bg-blueSapphire text-gray-300"
+            : colorScheme === "DanahPurple"
+            ? "bg-danahLightBlue text-gray-500"
             : ""
         }  p-12 my-4 mx-8`}
       >
@@ -46,17 +49,19 @@ function About() {
           through the AR environment.
         </span>
         <div
-          className={`h-96 py-4 w-1 ${
+          className={`h-96 mx-2 py-4 w-1 ${
             colorScheme === "light"
               ? "bg-gray-400"
               : colorScheme === "dark"
               ? "bg-gray-200"
               : colorScheme === "ocean"
               ? "bg-pewterBlue"
+              : colorScheme === "DanahPurple"
+              ? "bg-danahPurple"
               : ""
           } `}
         />
-        <img src={catLogo} className=" ml-4 w-64 h-64" />
+        <img className="h-56 pl-4" src={catLogo} alt="cat logo" />
       </div>
     </div>
   );

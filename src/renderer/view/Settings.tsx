@@ -22,6 +22,8 @@ function Settings() {
             ? "border-gray-500"
             : colorScheme === "ocean"
             ? "border-blueGreen"
+            : colorScheme === "DanahPurple"
+            ? "border-danahPurple"
             : ""
         }  p-2 m-2`}
       >
@@ -29,7 +31,7 @@ function Settings() {
           onClick={() => {
             setSettingsType("App Settings");
           }}
-          className={`flex items-center h-10 p-2 -mb-px text-center bg-transparent
+          className={`flex items-center h-10 p-2 -mb-px text-center bg-transparent font-semibold
           ${
             settingsType === "App Settings"
               ? `  border-b-2 ${
@@ -39,6 +41,8 @@ function Settings() {
                     ? "border-blue-400 text-blue-300"
                     : colorScheme === "ocean"
                     ? "border-blue-900 text-darkCornflowerBlue"
+                    : colorScheme === "DanahPurple"
+                    ? "text-danahPurple border-danahLightBlue "
                     : ""
                 }  sm:px-4 -px-1`
               : `${
@@ -48,8 +52,10 @@ function Settings() {
                     ? "text-white"
                     : colorScheme === "ocean"
                     ? "text-blueSapphire"
+                    : colorScheme === "DanahPurple"
+                    ? "text-danahPurple"
                     : ""
-                }  border-b-2 border-transparent sm:px-4 -px-1 hover:border-gray-400`
+                }  border-b-2 border-transparent sm:px-4 -px-1 hover:border-gray-400 font-medium`
           }
          whitespace-nowrap focus:outline-none`}
         >
@@ -75,28 +81,32 @@ function Settings() {
           onClick={() => {
             setSettingsType("Account Settings");
           }}
-          className={`flex items-center h-10 p-2 -mb-px bg-transparent text-center  
-        ${
-          settingsType !== "App Settings"
-            ? `  border-b-2 ${
-                colorScheme === "light"
-                  ? "text-blue-600 border-blue-500"
-                  : colorScheme === "dark"
-                  ? "border-blue-400 text-blue-300"
-                  : colorScheme === "ocean"
-                  ? "border-blue-900 text-darkCornflowerBlue"
-                  : ""
-              }  sm:px-4 -px-1`
-            : `${
-                colorScheme === "light"
-                  ? "text-gray-700"
-                  : colorScheme === "dark"
-                  ? "text-white"
-                  : colorScheme === "ocean"
-                  ? "text-blueSapphire"
-                  : ""
-              }  border-b-2 border-transparent sm:px-4 -px-1 hover:border-gray-400`
-        }
+          className={`flex items-center h-10 p-2 -mb-px text-center bg-transparent font-semibold
+          ${
+            settingsType !== "App Settings"
+              ? `  border-b-2 ${
+                  colorScheme === "light"
+                    ? "text-blue-600 border-blue-500"
+                    : colorScheme === "dark"
+                    ? "border-blue-400 text-blue-300"
+                    : colorScheme === "ocean"
+                    ? "border-blue-900 text-darkCornflowerBlue"
+                    : colorScheme === "DanahPurple"
+                    ? "text-danahPurple border-danahLightBlue "
+                    : ""
+                }  sm:px-4 -px-1`
+              : `${
+                  colorScheme === "light"
+                    ? "text-gray-700"
+                    : colorScheme === "dark"
+                    ? "text-white"
+                    : colorScheme === "ocean"
+                    ? "text-blueSapphire"
+                    : colorScheme === "DanahPurple"
+                    ? "text-danahPurple"
+                    : ""
+                }  border-b-2 border-transparent sm:px-4 -px-1 hover:border-gray-400 font-medium`
+          }
          whitespace-nowrap focus:outline-none`}
         >
           <svg
@@ -129,6 +139,8 @@ function Settings() {
                     ? "bg-gray-800 border border-gray-900 text-gray-200"
                     : colorScheme === "ocean"
                     ? "bg-blueGreen border border-darkCornflowerBlue text-spaceCadet"
+                    : colorScheme === "DanahPurple"
+                    ? "text-danahPurple border border-danahPurple bg-danahLightBlue"
                     : ""
                 }`}
               >
@@ -141,15 +153,25 @@ function Settings() {
               marginTop: "5px",
               marginLeft: "5px",
               width: "200px",
-              border: "1px solid black",
-              padding: "10px",
-              borderRadius: "5px",
-              boxShadow: "0px 0px 5px black",
+              borderRadius: "12px",
+              boxShadow: "0px 0px 5px gray",
             }}
           >
-            <div className="flex flex-col rounded-xl bg-slate-500 text-center  text-white p-2 font-mono">
+            <div
+              className={`flex flex-col rounded-xl ${
+                colorScheme === "light"
+                  ? "bg-gray-300 border border-gray-400 text-gray-600"
+                  : colorScheme === "dark"
+                  ? "bg-gray-800 border border-gray-900 text-gray-200"
+                  : colorScheme === "ocean"
+                  ? "bg-blueGreen border border-darkCornflowerBlue text-spaceCadet"
+                  : colorScheme === "DanahPurple"
+                  ? "text-danahPurple border border-danahPurple bg-danahLightBlue"
+                  : ""
+              }  text-center p-2 font-mono`}
+            >
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 cursor-pointer m-1"
                 onClick={() => {
                   // setTimeout(() => {
                   setResolution({ width: 1920, height: 920 });
@@ -163,7 +185,7 @@ function Settings() {
                 {resolutions.widths[0]}x{resolutions.heights[0]}
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 cursor-pointer m-1"
                 onClick={() => {
                   // setTimeout(() => {
                   setResolution({ width: 1300, height: 820 });
@@ -177,7 +199,7 @@ function Settings() {
                 {resolutions.widths[1]}x{resolutions.heights[1]}
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold  m-1 cursor-pointer"
                 onClick={() => {
                   // setTimeout(() => {
                   setResolution({ width: 800, height: 600 });
@@ -203,6 +225,8 @@ function Settings() {
                     ? "bg-gray-800 border border-gray-900 text-gray-200"
                     : colorScheme === "ocean"
                     ? "bg-blueGreen border border-darkCornflowerBlue text-spaceCadet"
+                    : colorScheme === "DanahPurple"
+                    ? "text-danahPurple border border-danahPurple bg-danahLightBlue"
                     : ""
                 }`}
               >
@@ -215,15 +239,25 @@ function Settings() {
               marginTop: "5px",
               marginLeft: "5px",
               width: "200px",
-              border: "1px solid black",
-              padding: "10px",
-              borderRadius: "5px",
-              boxShadow: "0px 0px 5px black",
+              borderRadius: "12px",
+              boxShadow: "0px 0px 5px gray",
             }}
           >
-            <div className="flex flex-col rounded-xl bg-slate-500 text-center  text-white p-2 font-mono">
+            <div
+              className={`flex flex-col rounded-xl ${
+                colorScheme === "light"
+                  ? "bg-gray-300 border border-gray-400 text-gray-600"
+                  : colorScheme === "dark"
+                  ? "bg-gray-800 border border-gray-900 text-gray-200"
+                  : colorScheme === "ocean"
+                  ? "bg-blueGreen border border-darkCornflowerBlue text-spaceCadet"
+                  : colorScheme === "DanahPurple"
+                  ? "text-danahPurple border border-danahPurple bg-danahLightBlue"
+                  : ""
+              }  text-center p-2 font-mono`}
+            >
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 m-1"
                 onClick={() => {
                   setColorScheme("light");
                 }}
@@ -231,7 +265,7 @@ function Settings() {
                 Light
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 m-1"
                 onClick={() => {
                   setColorScheme("dark");
                 }}
@@ -239,7 +273,7 @@ function Settings() {
                 Dark
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 m-1"
                 onClick={() => {
                   setColorScheme("ocean");
                 }}
@@ -247,7 +281,7 @@ function Settings() {
                 Ocean
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 m-1"
                 onClick={() => {
                   setColorScheme("DanahPurple");
                 }}
@@ -255,7 +289,7 @@ function Settings() {
                 DanahPurple
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 m-1"
                 onClick={() => {
                   setColorScheme("MidnightDark");
                 }}
@@ -263,7 +297,7 @@ function Settings() {
                 MidnightDark
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 m-1"
                 onClick={() => {
                   setColorScheme("PeacockGreen");
                 }}
@@ -271,7 +305,7 @@ function Settings() {
                 PeacockGreen
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold border-b border-blue-300 m-1"
                 onClick={() => {
                   setColorScheme("PekiDawn");
                 }}
@@ -279,7 +313,7 @@ function Settings() {
                 PekiDawn
               </span>
               <span
-                className="text-xl font-semibold border border-blue-300 rounded-xl m-1"
+                className="text-xl font-semibold m-1"
                 onClick={() => {
                   setColorScheme("BlackYellow");
                 }}
@@ -300,6 +334,8 @@ function Settings() {
                 ? "bg-gray-800"
                 : colorScheme === "ocean"
                 ? "bg-blueGreen"
+                : colorScheme === "DanahPurple"
+                ? "bg-danahLightBlue"
                 : ""
             }  rounded-md shadow-md`}
           >
@@ -311,6 +347,8 @@ function Settings() {
                   ? "text-white"
                   : colorScheme === "ocean"
                   ? "text-spaceCadet"
+                  : colorScheme === "DanahPurple"
+                  ? "text-danahPurple"
                   : ""
               } capitalize`}
             >
@@ -328,6 +366,8 @@ function Settings() {
                         ? "text-gray-200"
                         : colorScheme === "ocean"
                         ? "text-spaceCadet"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple"
                         : ""
                     } `}
                     for="username"
@@ -338,7 +378,7 @@ function Settings() {
                     id="username"
                     type="text"
                     class={`block w-full px-4 py-2 mt-2 ${
-                      colorScheme === "light"
+                      colorScheme === "light" || colorScheme === "DanahPurple"
                         ? "bg-gray-100 text-gray-700  border border-gray-200 focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
                         : colorScheme === "dark"
                         ? "bg-gray-500 text-gray-300 border-2 border-gray-600 focus:border-blue-300"
@@ -358,6 +398,8 @@ function Settings() {
                         ? "text-gray-200"
                         : colorScheme === "ocean"
                         ? "text-spaceCadet"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple"
                         : ""
                     } `}
                     for="emailAddress"
@@ -368,7 +410,7 @@ function Settings() {
                     id="emailAddress"
                     type="email"
                     class={`block w-full px-4 py-2 mt-2 ${
-                      colorScheme === "light"
+                      colorScheme === "light" || colorScheme === "DanahPurple"
                         ? "bg-gray-100 text-gray-700  border border-gray-200 focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
                         : colorScheme === "dark"
                         ? "bg-gray-500 text-gray-300 border-2 border-gray-600 focus:border-blue-300"
@@ -388,6 +430,8 @@ function Settings() {
                         ? "text-gray-200"
                         : colorScheme === "ocean"
                         ? "text-spaceCadet"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple"
                         : ""
                     } `}
                     for="password"
@@ -398,7 +442,7 @@ function Settings() {
                     id="password"
                     type="password"
                     class={`block w-full px-4 py-2 mt-2 ${
-                      colorScheme === "light"
+                      colorScheme === "light" || colorScheme === "DanahPurple"
                         ? "bg-gray-100 text-gray-700  border border-gray-200 focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
                         : colorScheme === "dark"
                         ? "bg-gray-500 text-gray-300 border-2 border-gray-600 focus:border-blue-300"
@@ -418,6 +462,8 @@ function Settings() {
                         ? "text-gray-200"
                         : colorScheme === "ocean"
                         ? "text-spaceCadet"
+                        : colorScheme === "DanahPurple"
+                        ? "text-danahPurple"
                         : ""
                     } `}
                     for="passwordConfirmation"
@@ -428,7 +474,7 @@ function Settings() {
                     id="passwordConfirmation"
                     type="password"
                     class={`block w-full px-4 py-2 mt-2 ${
-                      colorScheme === "light"
+                      colorScheme === "light" || colorScheme === "DanahPurple"
                         ? "bg-gray-100 text-gray-700  border border-gray-200 focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
                         : colorScheme === "dark"
                         ? "bg-gray-500 text-gray-300 border-2 border-gray-600 focus:border-blue-300"
@@ -447,6 +493,8 @@ function Settings() {
                       ? "bg-gray-700 hover:bg-gray-600"
                       : colorScheme === "ocean"
                       ? "bg-blueSapphire hover:bg-darkCornflowerBlue"
+                      : colorScheme === "DanahPurple"
+                      ? "bg-danahPurple hover:bg-danahLightBlue border border-danahPurple shadow-lg shadow-danahPurple"
                       : ""
                   }  rounded-md  focus:outline-none focus:bg-gray-600`}
                 >

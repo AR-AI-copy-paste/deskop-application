@@ -12,9 +12,9 @@ import fs from "fs";
 import { download } from "electron-dl";
 import { getAssetURL } from "electron-snowpack";
 import path from "path";
-try {
-  require("electron-reloader")(module);
-} catch {}
+// try {
+//   require("electron-reloader")(module);
+// } catch {}
 
 let mainWindow: BrowserWindow | null | undefined;
 let appIcon = null;
