@@ -12,6 +12,7 @@ import Team from "./view/Team";
 function MainPage() {
   const page = useRecoilValue(pageState);
   const [search, setSearch] = React.useState("");
+
   return (
     <div className="flex flex-col overflow-y-scroll">
       {page === "Explore" && (

@@ -3,7 +3,12 @@ import MainPage from "./MainPage";
 import SideBar from "./SideBar";
 import Logger from "./view/Logger";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { logState, colorSchemeState, pageState } from "./atoms";
+import {
+  logState,
+  colorSchemeState,
+  pageState,
+  fullSizeViewState,
+} from "./atoms";
 import "./app.css";
 import appRuntime from "./modules/appRuntime";
 import closeIcon from "/closeIcon.svg";
@@ -42,9 +47,10 @@ const App = () => {
           <div className="sidebar">
             <SideBar />
           </div>
+
           <div className="pt-8 pb-4 ml-11 main min-h-screen">
-            {/* <span>{msg}</span> */}
             <MainPage />
+            {/* <span>{msg}</span> */}
           </div>
         </div>
       )}
