@@ -35,6 +35,9 @@ function Team() {
       />
       <AboutSection
         name="Aimen Sahnoun"
+        github="https://github.com/aimensahnoun"
+        linkedin="https://www.linkedin.com/in/aimen-sahnoun-a18375172/"
+        twitter="https://twitter.com/AimenSahnoun"
         image="https://pps.whatsapp.net/v/t61.24694-24/61118537_443101443150154_5010036061808623616_n.jpg?ccb=11-4&oh=d7299012e9366f99220726e068903593&oe=626ADCBE"
       />
       <AboutSection
@@ -43,7 +46,10 @@ function Team() {
       />
       <AboutSection
         name="Halil Okan Karakas"
-        image="https://pps.whatsapp.net/v/t61.24694-24/172041379_118549300516319_782887980033901155_n.jpg?ccb=11-4&oh=5b9905359bd805fe22b61a7e766331a3&oe=626835E1"
+        linkedin="https://www.linkedin.com/in/okanakarakas/"
+        twitter="https://twitter.com/atlasbuttasasiz"
+        github="https://github.com/OkanAtlas"
+        image="https://pps.whatsapp.net/v/t61.24694-24/172041379_118549300516319_782887980033901155_n.jpg?ccb=11-4&oh=00e4b79d874559dcb2e6d8c5bc7e6d23&oe=628293E1"
       />
     </div>
   );
