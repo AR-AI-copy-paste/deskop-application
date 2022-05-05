@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { supabase } from "../supabaseClient";
 import { useRecoilState } from "recoil";
 import {
   logState,
@@ -6,19 +7,74 @@ import {
   userNameState,
   emailState,
   colorSchemeState,
+  userPasswordState,
+  isCreatedState,
+  profilePicState,
+  pageState,
 } from "../atoms";
+
 import catLogo from "/catlogo.svg";
+import ProfilePopUp from "../components/ProfilePopUp";
 function Logger() {
   const [logged, setLogged] = useRecoilState(logState);
+  const [page, setPage] = useRecoilState(pageState);
   const [createAccount, setCreateAccount] = useRecoilState(createAccountState);
   const [userName, setUsername] = useRecoilState(userNameState);
+  const [password, setPassword] = useRecoilState(userPasswordState);
   const [email, setEmail] = useRecoilState(emailState);
   const [colorScheme, setColorScheme] = useRecoilState(colorSchemeState);
+  const [isCreated, setIsCreated] = useRecoilState(isCreatedState);
+  const [profilePic, setProfilePic] = useRecoilState(profilePicState);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { user, error } = await supabase.auth.signIn({ email, password });
+    if (user) {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select()
+        .eq("id", user.id);
+      if (data.length > 0) {
+        setUsername(data[0].userName);
+        setProfilePic(data[0].ProfileImage);
+        setLogged(true);
+      }
+    } else {
+      alert("Incorrect username or password");
+    }
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const { user, error } = await supabase.auth.signUp({ email, password });
+    if (user) {
+      const usr = supabase.auth.user();
+      const { data, error } = await supabase.from("profiles").insert([
+        {
+          id: usr.id,
+          created_at: new Date(),
+          userName: "",
+          fullName: "",
+          ProfileImage: "",
+          email: email,
+          totalDownload: 0,
+          totalViews: 0,
+        },
+      ]);
+      console.log(error);
+      setIsCreated(false);
+    } else {
+      alert(error.message);
+    }
+  };
+
   return (
     <div>
       {!createAccount ? (
         <div className="flex flex-col w-screen h-screen justify-center items-center">
           <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
             className={`w-full max-w-sm p-6 m-auto ${
               colorScheme === "light" ||
               colorScheme === "DanahPurple" ||
@@ -56,11 +112,11 @@ function Logger() {
               </h1>
             </div>
 
-            <form className="mt-6">
+            <form className="mt-6" onSubmit={handleLogin}>
               <div>
                 <label
                   htmlFor="username"
-                  className={`block text-sm ${
+                  className={`block text-sm  ${
                     colorScheme === "light" ||
                     colorScheme === "DanahPurple" ||
                     colorScheme === "PekiDawn" ||
@@ -141,6 +197,7 @@ function Logger() {
 
                 <input
                   type="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   className={`block w-full px-4 py-2 mt-2 ${
                     colorScheme === "light" ||
                     colorScheme === "DanahPurple" ||
@@ -160,7 +217,9 @@ function Logger() {
 
               <div className="mt-6">
                 <button
-                  onClick={() => setLogged(true)}
+                  onClick={() => {
+                    setPage("Explore");
+                  }}
                   className={`w-full px-4 py-2 tracking-wide ${
                     colorScheme === "light" ||
                     colorScheme === "dark" ||
@@ -272,6 +331,9 @@ function Logger() {
       ) : (
         <div className="flex flex-col w-screen h-screen justify-center items-center">
           <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
             className={`w-full max-w-sm p-6 m-auto ${
               colorScheme === "light" ||
               colorScheme === "DanahPurple" ||
@@ -287,26 +349,29 @@ function Logger() {
                 : ""
             } rounded-md shadow-md `}
           >
-            <h1
-              className={`text-3xl font-semibold text-center ${
-                colorScheme === "light" ||
-                colorScheme === "DanahPurple" ||
-                colorScheme === "PekiDawn" ||
-                colorScheme === "PeacockGreen"
-                  ? "text-gray-700"
-                  : colorScheme === "dark" ||
-                    colorScheme === "MidnightDark" ||
-                    colorScheme === "BlackYellow"
-                  ? "text-white"
-                  : colorScheme === "ocean"
-                  ? "text-white"
-                  : ""
-              } `}
-            >
-              CopyCat
-            </h1>
+            <div className="flex flex-row justify-center items-center draggableText">
+              <img src={catLogo} alt="cat logo" className="w-8 h-auto" />
+              <h1
+                className={`ml-4 text-4xl font-mono font-semibold text-center ${
+                  colorScheme === "light" ||
+                  colorScheme === "DanahPurple" ||
+                  colorScheme === "PekiDawn" ||
+                  colorScheme === "PeacockGreen"
+                    ? "text-gray-700"
+                    : colorScheme === "dark" ||
+                      colorScheme === "MidnightDark" ||
+                      colorScheme === "BlackYellow"
+                    ? "text-white"
+                    : colorScheme === "ocean"
+                    ? "text-white"
+                    : ""
+                } `}
+              >
+                CopyCat
+              </h1>
+            </div>
 
-            <form className="mt-6">
+            <form className="mt-6" onSubmit={handleSignup}>
               <div>
                 <div className="flex items-center justify-between">
                   <label
@@ -349,45 +414,6 @@ function Logger() {
                   } border rounded-md  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40`}
                 />
               </div>
-              <div className="mt-4">
-                <label
-                  htmlFor="username"
-                  className={`block text-sm ${
-                    colorScheme === "light" ||
-                    colorScheme === "DanahPurple" ||
-                    colorScheme === "PekiDawn" ||
-                    colorScheme === "PeacockGreen"
-                      ? "text-gray-800"
-                      : colorScheme === "dark" ||
-                        colorScheme === "MidnightDark" ||
-                        colorScheme === "BlackYellow"
-                      ? "text-gray-200"
-                      : colorScheme === "ocean"
-                      ? "text-pewterBlue"
-                      : ""
-                  }  `}
-                >
-                  Username
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setUsername(e.target.value)}
-                  className={`block w-full px-4 py-2 mt-2 ${
-                    colorScheme === "light" ||
-                    colorScheme === "DanahPurple" ||
-                    colorScheme === "PekiDawn" ||
-                    colorScheme === "PeacockGreen"
-                      ? "text-gray-700 bg-white focus:border-blue-400 "
-                      : colorScheme === "dark" ||
-                        colorScheme === "MidnightDark" ||
-                        colorScheme === "BlackYellow"
-                      ? "bg-gray-800 text-gray-300 border-gray-600  focus:border-blue-300"
-                      : colorScheme === "ocean"
-                      ? "bg-blueSapphire text-white focus:border-blue-300"
-                      : ""
-                  } border rounded-md  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40`}
-                />
-              </div>
 
               <div className="mt-4">
                 <div className="flex items-center justify-between">
@@ -414,6 +440,7 @@ function Logger() {
 
                 <input
                   type="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   className={`block w-full px-4 py-2 mt-2 ${
                     colorScheme === "light" ||
                     colorScheme === "DanahPurple" ||
@@ -433,7 +460,7 @@ function Logger() {
 
               <div className="mt-6">
                 <button
-                  onClick={() => setLogged(true)}
+                  // onClick={() => setLogged(true)}
                   className={`w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform ${
                     colorScheme === "light" ||
                     colorScheme === "dark" ||
@@ -545,6 +572,7 @@ function Logger() {
           </div>
         </div>
       )}
+      <ProfilePopUp />
     </div>
   );
 }

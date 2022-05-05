@@ -1,21 +1,28 @@
 import React from "react";
-
+import { supabase } from "./supabaseClient";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   pageState,
   logState,
   userNameState,
   emailState,
+  profilePicState,
   colorSchemeState,
+  createAccountState,
+  userPasswordState,
 } from "./atoms";
 import catLogo from "/catlogo.svg";
+import imageNone from "/image.svg";
 
 function SideBar() {
   const [page, setPage] = useRecoilState(pageState);
   const [logged, setLogged] = useRecoilState(logState);
-  const userName = useRecoilValue(userNameState);
+  const [createAccount, setCreateAccount] = useRecoilState(createAccountState);
+  const [userName, setUserName] = useRecoilState(userNameState);
+  const [password, setPassword] = useRecoilState(userPasswordState);
   const email = useRecoilValue(emailState);
   const colorScheme = useRecoilValue(colorSchemeState);
+  const profilePic = useRecoilValue(profilePicState);
   return (
     <div
       className={`flex flex-col w-64 py-8 ${
@@ -59,11 +66,19 @@ function SideBar() {
           </h2>
         </div>
         <div className="flex flex-col items-center mt-6 -mx-2">
-          <img
-            className="object-cover w-24 h-24 mx-2 rounded-full"
-            src="/Khalil-portrait.jpg"
-            alt="avatar"
-          />
+          {profilePic ? (
+            <img
+              className="object-cover w-24 h-24 mx-2 rounded-full"
+              src={profilePic}
+              alt="avatar"
+            />
+          ) : (
+            <img
+              className="w-24 h-24 mx-2 rounded-full object-scale-down border border-gray-300"
+              src={imageNone}
+              alt="avatar"
+            />
+          )}
           <h4
             className={`mx-2 mt-2 font-medium ${
               colorScheme === "light"
@@ -452,7 +467,13 @@ function SideBar() {
                   : ""
               } transition-colors duration-200 transform`}
               `}
-            onClick={() => setLogged(false)}
+            onClick={async () => {
+              await supabase.auth.signOut();
+              setCreateAccount(false);
+              setUserName("");
+              setPassword("");
+              setLogged(false);
+            }}
           >
             <svg
               className="w-5 h-5"

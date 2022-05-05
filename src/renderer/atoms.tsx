@@ -17,12 +17,16 @@ export const createAccountState = atom({
 
 export const userNameState = atom({
   key: "userNameState",
-  default: "KhalilSelyan",
+  default: "",
+});
+export const userPasswordState = atom({
+  key: "userPasswordState",
+  default: "",
 });
 
 export const emailState = atom({
   key: "emailState",
-  default: "khalilselyan@gmail.com",
+  default: "",
 });
 
 export const fullSizeViewState = atom({
@@ -48,4 +52,19 @@ export const colorSchemeState = atom({
 export const resolutionState = atom({
   key: "resolutionState",
   default: { width: 1300, height: 700 },
+});
+
+export const profilePicState = atom({
+  key: "profilePicState",
+  default: "",
+});
+
+export const isCreatedState = atom({
+  key: "isCreatedState",
+  default: true,
+});
+
+export const userFullNameState = atom({
+  key: "userFullNameState",
+  default: "",
 });
