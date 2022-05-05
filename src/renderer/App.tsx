@@ -8,12 +8,14 @@ import {
   colorSchemeState,
   pageState,
   fullSizeViewState,
+  isCreatedState,
 } from "./atoms";
 import "./app.css";
 import appRuntime from "./modules/appRuntime";
 import closeIcon from "/closeIcon.svg";
 const App = () => {
   const logged = useRecoilValue(logState);
+  const [isCreated, setIsCreated] = useRecoilState(isCreatedState);
   const colorScheme = useRecoilValue(colorSchemeState);
 
   const [page, setPage] = useRecoilState(pageState);
@@ -27,6 +29,10 @@ const App = () => {
   return (
     <div
       id="root"
+      onClick={() => {
+        setIsCreated(true);
+        console.log(isCreated);
+      }}
       className={` ${
         colorScheme === "light" ||
         colorScheme === "DanahPurple" ||
