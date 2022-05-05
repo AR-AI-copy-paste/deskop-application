@@ -60,11 +60,11 @@ const PopupModal = (props) => {
           colorScheme === "DanahPurple" ||
           colorScheme === "PeacockGreen" ||
           colorScheme === "PekiDawn"
-            ? "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+            ? "bg-gray-100 text-gray-600"
             : colorScheme === "dark" ||
               colorScheme === "MidnightDark" ||
               colorScheme === "BlackYellow"
-            ? "bg-gray-700 text-gray-100 hover:bg-gray-800 hover:text-gray-200"
+            ? "bg-gray-700 text-gray-100 "
             : colorScheme === "ocean"
             ? "bg-blueGreen text-white"
             : ""
@@ -75,7 +75,7 @@ const PopupModal = (props) => {
             setFullSizeView(true);
             setFullSizeViewLink(props.link);
           }}
-          className=" p-1 m-1 cursor-pointer"
+          className=" p-2 m-1 cursor-pointer hover:bg-gray-200 hover:text-gray-900 w-full rounded-3xl"
         >
           View in full size
         </span>
@@ -88,11 +88,13 @@ const PopupModal = (props) => {
               "downloads/Copycat"
             );
           }}
-          className=" p-1 m-1 cursor-pointer"
+          className=" p-2 m-1 cursor-pointer hover:bg-gray-200 hover:text-gray-900 w-full rounded-3xl"
         >
           Download Image
         </span>
-        <span className=" p-1 m-1 cursor-pointer">Fork Image</span>
+        <span className=" p-2 m-1 cursor-pointer hover:bg-gray-200 hover:text-gray-900 w-full rounded-3xl">
+          Fork Image
+        </span>
       </div>
     </Popup>
   );

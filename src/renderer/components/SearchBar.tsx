@@ -18,9 +18,9 @@ const SearchBar: React.FC<Props> = ({ placeholder, setSearch }) => {
             colorScheme === "dark" ||
             colorScheme === "BlackYellow" ||
             colorScheme === "MidnightDark"
-              ? "text-gray-200 bg-gray-600 border-gray-500"
-              : "text-gray-700 bg-gray-100"
-          }  text-xs border  rounded-xl focus:outline-none placeholder:text-gray-50
+              ? "text-gray-200 bg-gray-600 border-gray-500 placeholder:text-gray-50"
+              : "text-gray-700 bg-gray-100 placeholder:text-gray-800"
+          }  text-xs border  rounded-xl focus:outline-none 
             `}
           placeholder={placeholder}
           onChange={(e) => {
