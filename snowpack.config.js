@@ -13,7 +13,11 @@ module.exports = {
   devOptions: {
     tailwindConfig: "./tailwind.config.js",
   },
-  plugins: ["@snowpack/plugin-react-refresh", "@snowpack/plugin-postcss"],
+  plugins: [
+    "@snowpack/plugin-react-refresh",
+    "@snowpack/plugin-postcss",
+    "@snowpack/plugin-typescript",
+  ],
   packageOptions: {
     knownEntrypoints: ["react-dom"],
   },

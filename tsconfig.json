@@ -2,3 +2,22 @@
   "extends": "electron-snowpack/config/tsconfig.json",
   "include": ["src", "types"]
 }
+
+// electron-snowpack/config/tsconfig.json changes
+
+// {
+//   "$schema": "https://json.schemastore.org/tsconfig",
+//   "display": "Electron Snowpack",
+//   "compilerOptions": {
+//     "module": "esnext",
+//     "target": "esnext",
+//     "moduleResolution": "node",
+//     "jsx": "react",
+//     "esModuleInterop": true,
+//     "allowSyntheticDefaultImports": true,
+//     "isolatedModules": true,
+//     "lib": ["dom", "dom.iterable", "esnext"],
+//     "noEmit": true,
+//     "forceConsistentCasingInFileNames": true
+//   }
+// }
