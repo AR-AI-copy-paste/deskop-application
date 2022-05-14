@@ -58,6 +58,7 @@ function Logger() {
           email: email,
           totalDownload: 0,
           totalViews: 0,
+          scans: 0,
         },
       ]);
       console.log(error);
@@ -131,7 +132,7 @@ function Logger() {
                       : ""
                   }  `}
                 >
-                  Username
+                  Email
                 </label>
                 <input
                   type="text"

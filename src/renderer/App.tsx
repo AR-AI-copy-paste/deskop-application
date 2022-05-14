@@ -13,6 +13,7 @@ import {
 import "./app.css";
 import appRuntime from "./modules/appRuntime";
 import closeIcon from "/closeIcon.svg";
+
 const App = () => {
   const logged = useRecoilValue(logState);
   const [isCreated, setIsCreated] = useRecoilState(isCreatedState);

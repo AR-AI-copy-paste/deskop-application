@@ -42,7 +42,7 @@ function Team() {
       />
       <AboutSection
         name="Danah Al Akkad"
-        image="https://pps.whatsapp.net/v/t61.24694-24/232162700_1435056720199721_1657016466620043236_n.jpg?ccb=11-4&oh=c2e31b3769035cbe02a1ad2cb0a64242&oe=626ACFC3"
+        image="https://pps.whatsapp.net/v/t61.24694-24/232162700_1435056720199721_1657016466620043236_n.jpg?ccb=11-4&oh=2dfc95b9f1ded6f5891ee1b2bdaae82d&oe=628992C3"
       />
       <AboutSection
         name="Halil Okan Karakas"

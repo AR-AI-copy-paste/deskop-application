@@ -11,6 +11,7 @@ import {
   userNameState,
 } from "../atoms";
 import imageNone from "/image.svg";
+import appRuntime from "../modules/appRuntime";
 
 function ProfilePopUp() {
   const [logged, setLogged] = useRecoilState(logState);
@@ -19,10 +20,24 @@ function ProfilePopUp() {
   const [userName, setUserName] = useRecoilState(userNameState);
   const [isCreated, setIsCreated] = useRecoilState(isCreatedState);
   const [userFullName, setUserFullName] = useRecoilState(userFullNameState);
-  const [profilePicture, setProfilePicture] = React.useState(null);
+  // const [profilePicture, setProfilePicture] = React.useState(null);
   const [username, setUsername] = React.useState("");
   const [fullName, setFullName] = React.useState("");
-  const ref = React.useRef();
+  const ref = React.useRef<HTMLInputElement>();
+  let filePath;
+
+  const onUpload = async (file: File | null) => {
+    await appRuntime.send("will-upload", file.path);
+    // React.useEffect(() => {
+    appRuntime.subscribe("linkOfFile", async (data) => {
+      console.log("file path : ", data);
+      await setProfilePic(data);
+      filePath = data;
+      return filePath;
+    });
+    // });
+    // setProfilePicture(filePath);
+  };
 
   return (
     <Popup open={!isCreated}>
@@ -97,10 +112,10 @@ function ProfilePopUp() {
               Change Profile Picture
             </h3>
             <div className="flex flex-row items-center justify-evenly ">
-              {profilePicture ? (
+              {profilePic ? (
                 <img
                   className="object-cover w-24 h-24 mx-2 rounded-full"
-                  src={profilePicture}
+                  src={profilePic}
                   alt="avatar"
                 />
               ) : (
@@ -114,11 +129,12 @@ function ProfilePopUp() {
                 type="file"
                 ref={ref}
                 className="hidden"
-                onChange={(event) => {
+                onChange={async (event) => {
                   if (event.target.files && event.target.files[0]) {
-                    setProfilePicture(
-                      URL.createObjectURL(event.target.files[0])
-                    );
+                    await onUpload(event.target.files[0]);
+                    await setProfilePic(filePath);
+
+                    // setProfilePic(URL.createObjectURL(event.target.files[0]));
                   }
                 }}
               />
@@ -166,7 +182,7 @@ function ProfilePopUp() {
                       : ""
                   }  rounded-xl  focus:outline-none focus:bg-gray-600`}
                   onClick={() => {
-                    setProfilePicture(null);
+                    setProfilePic(null);
                     ref.current.value = "";
                   }}
                 >
@@ -309,7 +325,7 @@ function ProfilePopUp() {
               <button
                 onClick={async (e) => {
                   e.preventDefault();
-                  setProfilePic(profilePicture);
+                  onUpload(ref.current.files[0]);
                   setUserName(username);
                   setUserFullName(fullName);
                   const user = await supabase.auth.user();
@@ -318,7 +334,7 @@ function ProfilePopUp() {
                     .update([
                       {
                         fullName: fullName,
-                        userName: userName,
+                        userName: username,
                         ProfileImage: profilePic,
                       },
                     ])

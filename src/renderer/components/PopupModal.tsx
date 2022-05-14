@@ -38,7 +38,7 @@ const PopupModal = (props) => {
     <Popup
       arrow={false}
       trigger={
-        <button
+        <div
           className={`h-7 w-7 rounded-full pb-2 ${
             colorScheme === "light" ||
             colorScheme === "DanahPurple" ||
@@ -50,7 +50,7 @@ const PopupModal = (props) => {
         >
           {" "}
           ...
-        </button>
+        </div>
       }
       position="left bottom"
     >

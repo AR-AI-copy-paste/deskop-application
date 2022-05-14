@@ -56,7 +56,7 @@ export const resolutionState = atom({
 
 export const profilePicState = atom({
   key: "profilePicState",
-  default: "",
+  default: null,
 });
 
 export const isCreatedState = atom({

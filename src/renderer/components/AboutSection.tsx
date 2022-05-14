@@ -26,7 +26,7 @@ function AboutSection({
   return (
     <div>
       <section
-        class={`border border-gray-600 rounded-3xl max-w-full ${
+        className={`border border-gray-600 rounded-3xl max-w-full ${
           colorScheme === "light"
             ? "bg-gray-100"
             : colorScheme === "dark"
@@ -46,11 +46,11 @@ function AboutSection({
             : ""
         }  p-2 my-4 mx-8`}
       >
-        <div class="container px-6 py-8 mx-auto">
-          <div class="items-center lg:flex">
-            <div class="lg:w-1/2">
+        <div className="container px-6 py-8 mx-auto">
+          <div className="items-center lg:flex">
+            <div className="lg:w-1/2">
               <p
-                class={`mt-4 ${
+                className={`mt-4 ${
                   colorScheme === "light"
                     ? "text-gray-500"
                     : colorScheme === "dark"
@@ -64,7 +64,7 @@ function AboutSection({
               >
                 Hi I am {name} , software engineer{" "}
                 <a
-                  class={`font-bold ${
+                  className={`font-bold ${
                     colorScheme === "light"
                       ? "text-blue-600"
                       : colorScheme === "dark"
@@ -85,10 +85,10 @@ function AboutSection({
                   : `${description}`}
               </p>
 
-              <div class="flex items-center mt-6 -mx-2">
+              <div className="flex items-center mt-6 -mx-2">
                 {twitter ? (
                   <a
-                    class="mx-2"
+                    className="mx-2"
                     onClick={() => {
                       appRuntime.send("will-navigate", twitter);
                     }}
@@ -126,7 +126,7 @@ function AboutSection({
 
                 {facebook ? (
                   <a
-                    class="mx-2"
+                    className="mx-2"
                     onClick={() => {
                       appRuntime.send("will-navigate", facebook);
                     }}
@@ -164,7 +164,7 @@ function AboutSection({
 
                 {linkedin ? (
                   <a
-                    class="mx-2"
+                    className="mx-2"
                     onClick={() => {
                       appRuntime.send("will-navigate", linkedin);
                     }}
@@ -202,7 +202,7 @@ function AboutSection({
 
                 {github ? (
                   <a
-                    class="mx-2"
+                    className="mx-2"
                     onClick={() => {
                       appRuntime.send("will-navigate", github);
                     }}
@@ -240,11 +240,11 @@ function AboutSection({
               </div>
             </div>
 
-            <div class="mt-8 lg:mt-0 lg:w-1/2">
-              <div class="flex items-center justify-center lg:justify-end">
-                <div class="max-w-lg">
+            <div className="mt-8 lg:mt-0 lg:w-1/2">
+              <div className="flex items-center justify-center lg:justify-end">
+                <div className="max-w-lg">
                   <img
-                    class="object-cover object-center w-full h-64 rounded-xl shadow"
+                    className="object-cover object-center w-full h-64 rounded-xl shadow"
                     src={image}
                     alt=""
                   />

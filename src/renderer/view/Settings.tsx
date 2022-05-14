@@ -22,7 +22,9 @@ function Settings() {
   const [profilePic, setProfilePic] = useRecoilState(profilePicState);
   const [userName, setUserName] = useRecoilState(userNameState);
   const [email, setEmail] = useRecoilState(emailState);
-  const ref = React.useRef();
+  // const ref = React.useRef();
+
+  const ref = React.useRef<HTMLInputElement>();
   const [profilePicture, setProfilePicture] = React.useState(null);
   const [emailAdress, setEmailAdress] = React.useState(null);
   const [username, setUsername] = React.useState(null);
@@ -105,9 +107,9 @@ function Settings() {
             stroke="currentColor"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
             />
           </svg>
@@ -171,9 +173,9 @@ function Settings() {
             stroke="currentColor"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
             />
           </svg>
@@ -768,7 +770,7 @@ function Settings() {
                         ? "text-grey-800"
                         : ""
                     } `}
-                    for="username"
+                    htmlFor="username"
                   >
                     Username
                   </label>
@@ -819,7 +821,7 @@ function Settings() {
                         ? "text-grey-800"
                         : ""
                     } `}
-                    for="emailAddress"
+                    htmlFor="emailAddress"
                   >
                     Email Address
                   </label>
@@ -870,7 +872,7 @@ function Settings() {
                         ? "text-grey-800"
                         : ""
                     } `}
-                    for="password"
+                    htmlFor="password"
                   >
                     Password
                   </label>
@@ -918,7 +920,7 @@ function Settings() {
                         ? "text-grey-800"
                         : ""
                     } `}
-                    for="passwordConfirmation"
+                    htmlFor="passwordConfirmation"
                   >
                     Password Confirmation
                   </label>
@@ -946,7 +948,7 @@ function Settings() {
                 </div>
               </div>
 
-              <div class="flex justify-end mt-6">
+              <div className="flex justify-end mt-6">
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -954,7 +956,7 @@ function Settings() {
                     setEmail(emailAdress);
                     setUserName(username);
                   }}
-                  class={`px-6 py-2 leading-5 text-white transition-colors duration-200 transform ${
+                  className={`px-6 py-2 leading-5 text-white transition-colors duration-200 transform ${
                     colorScheme === "dark" || colorScheme === "light"
                       ? "bg-gray-700 hover:bg-gray-600"
                       : colorScheme === "ocean"
