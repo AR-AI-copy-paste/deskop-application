@@ -7,6 +7,7 @@
 ## Table of Contents
 
 - [Description](#description)
+- [Screenshots](#Screenshots)
 - [Usage](#usage)
 - [Contribution](#contribution)
 - [Test Instructions](#test-instructions)
