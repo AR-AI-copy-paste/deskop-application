@@ -42,6 +42,10 @@ Account Settings Page
 
 ![Account Settings](https://user-images.githubusercontent.com/36904941/168465474-c86ff50c-321f-4098-8e3d-073254b21d9c.png)
 
+Screenshot Window
+
+![Screenshot Window](https://user-images.githubusercontent.com/36904941/168465730-91483c07-d097-4c7a-bb77-3d9ed39b0bac.jpg)
+
 A Few Different Color Schemes
 
 ![Light](https://user-images.githubusercontent.com/36904941/168465553-7e881d72-6d00-4e88-89f6-9e3833da5742.png)
