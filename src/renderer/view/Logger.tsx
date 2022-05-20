@@ -27,19 +27,30 @@ function Logger() {
   const [profilePic, setProfilePic] = useRecoilState(profilePicState);
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { user, error } = await supabase.auth.signIn({ email, password });
-    if (user) {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select()
-        .eq("id", user.id);
-      if (data.length > 0) {
-        setUsername(data[0].userName);
-        setProfilePic(data[0].ProfileImage);
-        setLogged(true);
+    try {
+      const { user, error } = await supabase.auth.signIn({
+        email,
+        password,
+      });
+
+      if (user) {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select()
+          .eq("id", user.id);
+
+        console.log(data);
+
+        if (data.length > 0) {
+          setUsername(data[0].userName);
+          setProfilePic(data[0].ProfileImage);
+          setLogged(true);
+        }
+      } else {
+        alert("Incorrect email or password");
       }
-    } else {
-      alert("Incorrect username or password");
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -47,7 +58,7 @@ function Logger() {
     e.preventDefault();
     const { user, error } = await supabase.auth.signUp({ email, password });
     if (user) {
-      const usr = supabase.auth.user();
+      const usr = user;
       const { data, error } = await supabase.from("profiles").insert([
         {
           id: usr.id,
@@ -136,7 +147,7 @@ function Logger() {
                 </label>
                 <input
                   type="text"
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   className={`block w-full px-4 py-2 mt-2 ${
                     colorScheme === "light" ||
                     colorScheme === "DanahPurple" ||

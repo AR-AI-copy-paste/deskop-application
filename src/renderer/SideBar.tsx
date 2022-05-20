@@ -23,6 +23,7 @@ function SideBar() {
   const email = useRecoilValue(emailState);
   const colorScheme = useRecoilValue(colorSchemeState);
   const profilePic = useRecoilValue(profilePicState);
+
   return (
     <div
       className={`flex flex-col w-64 py-8 ${

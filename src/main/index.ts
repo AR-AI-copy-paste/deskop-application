@@ -23,39 +23,10 @@ const child_process = require("child_process");
 
 const exec = require("child_process").exec;
 let paste = false;
-if (paste) {
-  // clipboard.writeText("Hello World!");
-  clipboard.writeImage(
-    nativeImage.createFromPath(
-      path.join(__dirname, "../../assets/copycat_head_remade-2.ico")
-    )
-  );
-  const child = exec(
-    'powershell "gps | where {$_.MainWindowTitle } | select Description ; node src/main/robotter.js',
-    (error, stdout, stderr) => {
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-      if (error !== null) {
-        console.log(`exec error: ${error}`);
-      }
-    }
-  );
+// clipboard.writeText("Hello World!");
 
-  child.stdout.on("data", (data) => {
-    console.log(`stdout: ${data}`);
-  });
-  child.stderr.on("data", (data) => {
-    console.log(`stderr: ${data}`);
-  });
-  child.on("close", (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
-  child.on("error", (err) => {
-    console.log(`child process error: ${err}`);
-  });
-  paste = false;
-}
 import express from "express";
+import { json } from "body-parser";
 var appExpress = express();
 var expressWs = require("express-ws");
 
@@ -76,25 +47,84 @@ appExpress.ws("/", function (ws, req) {
   ws.on("message", async function (msg) {
     // console.log("url: ", msg);
     const test = await msg;
-    await base64ToNativeImage(test);
+    // console.log("test: ", test);
+
+    if (test.includes("type")) {
+      const jsonObject = JSON.parse(test);
+      console.log(jsonObject.type);
+      // console.log(jsonObject.message);
+
+      if (jsonObject.type === "text") {
+        await receiveTextFromApp(jsonObject.message);
+      } else if (jsonObject.type === "image") {
+        await base64ToNativeImage(jsonObject.message);
+      }
+    }
   });
   console.log("socket", req.testing);
 });
 
+async function receiveTextFromApp(msg) {
+  // console.log("receiveTextFromApp", msg);
+  clipboard.writeText(msg);
+  const child = exec("node src/main/robotter.js", (error, stdout, stderr) => {
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+    if (error !== null) {
+      console.log(`exec error: ${error}`);
+    }
+  });
+
+  child.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+  child.stderr.on("data", (data) => {
+    console.log(`stderr: ${data}`);
+  });
+  child.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
+  child.on("error", (err) => {
+    console.log(`child process error: ${err}`);
+  });
+}
+
 let imageNativeFrom64;
 // Convert the base64 string to a nativeImage
 async function base64ToNativeImage(msg) {
+  // console.log(msg);
   const base64WithType = "data:image/png;base64," + msg;
   // const img = Base64ToImage(base64WithType);
   imageNativeFrom64 = await nativeImage.createFromDataURL(base64WithType);
-  console.log(imageNativeFrom64.toPNG());
+  // console.log(imageNativeFrom64.toPNG());
 
   let downloadFolder = path.join(app.getPath("downloads"), "CopyCatSocket");
   let socketPath = path.join(downloadFolder, "socket.png");
 
   clipboard.writeImage(imageNativeFrom64);
-  if (msg.includes("/")) {
-    paste = true;
+  // clipboard.writeImage(nativeImage.createFromBuffer(imageNativeFrom64.toPNG()),"png");
+
+  if (base64WithType.includes("/")) {
+    const child = exec("node src/main/robotter.js", (error, stdout, stderr) => {
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+      if (error !== null) {
+        console.log(`exec error: ${error}`);
+      }
+    });
+
+    child.stdout.on("data", (data) => {
+      console.log(`stdout: ${data}`);
+    });
+    child.stderr.on("data", (data) => {
+      console.log(`stderr: ${data}`);
+    });
+    child.on("close", (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+    child.on("error", (err) => {
+      console.log(`child process error: ${err}`);
+    });
   }
 
   await fs.writeFile(
@@ -102,7 +132,7 @@ async function base64ToNativeImage(msg) {
     imageNativeFrom64.toPNG(),
     async function (error) {
       if (error) return console.log(error);
-      console.log("Saved screenshot to: " + socketPath);
+      console.log("Saved received to: " + socketPath);
     }
   );
 }

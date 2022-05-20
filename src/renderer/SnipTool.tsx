@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { colorSchemeState } from "./atoms";
 import appRuntime from "./modules/appRuntime";
 import closeIcon from "/closeIcon.svg";
+import { supabase } from "./supabaseClient";
 import "./app.css";
 let socket = new WebSocket("ws://localhost:8084");
 socket.onopen = () => {
@@ -44,6 +45,16 @@ function SnipTool() {
             appRuntime.send("screenshot", "getImageLink");
             appRuntime.subscribe("screenshot-done", async (data) => {
               console.log("screenshot-done data: ", data);
+              try {
+                const { _data, _error } = await supabase.from("images").insert({
+                  title: "",
+                  imgUrl: data,
+                  owner: supabase.auth.user().id,
+                  isPrivate: false,
+                });
+              } catch (error) {
+                console.log(error);
+              }
               onDownload(data, data.split("/").pop());
             });
             socket.send("I am sending a screenshot");

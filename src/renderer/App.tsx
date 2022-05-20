@@ -2,6 +2,7 @@ import React from "react";
 import MainPage from "./MainPage";
 import SideBar from "./SideBar";
 import Logger from "./view/Logger";
+import { supabase } from "./supabaseClient";
 import { useRecoilValue, useRecoilState } from "recoil";
 import {
   logState,
@@ -15,17 +16,20 @@ import appRuntime from "./modules/appRuntime";
 import closeIcon from "/closeIcon.svg";
 
 const App = () => {
-  const logged = useRecoilValue(logState);
+  const [logged, setLogged] = useRecoilState(logState);
   const [isCreated, setIsCreated] = useRecoilState(isCreatedState);
   const colorScheme = useRecoilValue(colorSchemeState);
 
   const [page, setPage] = useRecoilState(pageState);
 
-  React.useEffect(() =>
+  React.useEffect(() => {
+    const userObject = supabase.auth.user();
+    console.log(userObject);
+    // setLogged(userObject);
     appRuntime.subscribe("pageOpen", (data) => {
       setPage(data);
-    })
-  );
+    });
+  }, [supabase.auth.user()]);
 
   return (
     <div

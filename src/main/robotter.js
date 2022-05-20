@@ -16,6 +16,6 @@ var robot = require("robotjs");
 // console.log(robot.getMousePos());
 // robot.moveMouse(x, y);
 // robot.mouseClick("left");
-setTimeout(() => {
-  robot.keyTap("v", "control");
-}, 500);
+// setTimeout(() => {
+robot.keyTap("v", "control");
+// }, 500);
