@@ -1,4 +1,8 @@
 var robot = require("robotjs");
+// robot.keyTap("v", "control");
+setTimeout(() => {
+  robot.keyTap("v", "control");
+}, 750);
 
 // Speed up the mouse.
 // robot.setMouseDelay(2);
@@ -16,6 +20,3 @@ var robot = require("robotjs");
 // console.log(robot.getMousePos());
 // robot.moveMouse(x, y);
 // robot.mouseClick("left");
-// setTimeout(() => {
-robot.keyTap("v", "control");
-// }, 500);

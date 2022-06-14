@@ -68,3 +68,8 @@ export const userFullNameState = atom({
   key: "userFullNameState",
   default: "",
 });
+
+export const explorerSearchValue = atom({
+  key: "explorerSearchValue",
+  default: "",
+});

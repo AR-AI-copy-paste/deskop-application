@@ -1,3 +1,5 @@
+// import fetch from "node-fetch";
+import axios from "axios";
 import {
   app,
   BrowserWindow,
@@ -16,17 +18,20 @@ import { download } from "electron-dl";
 import { getAssetURL } from "electron-snowpack";
 import path from "path";
 import { getFilesFromPath, Web3Storage } from "web3.storage";
-const child_process = require("child_process");
+
+const { io } = require("socket.io-client");
+const socket = io("https://capstoneserver-2.herokuapp.com/");
+
+socket.on("connect", () => {
+  console.log("connected");
+});
 
 // import BodyParser from "body-parser";
-// Move the mouse across the screen as a sine wave.
 
 const exec = require("child_process").exec;
 let paste = false;
-// clipboard.writeText("Hello World!");
 
 import express from "express";
-import { json } from "body-parser";
 var appExpress = express();
 var expressWs = require("express-ws");
 
@@ -43,25 +48,43 @@ appExpress.get("/", function (req, res, next) {
   res.end();
 });
 
-appExpress.ws("/", function (ws, req) {
-  ws.on("message", async function (msg) {
-    // console.log("url: ", msg);
-    const test = await msg;
-    // console.log("test: ", test);
+// appExpress.ws("/", function (ws, req) {
+//   ws.on("message", async function (msg) {
+//     // console.log("url: ", msg);
+//     const test = await msg;
+//     // console.log("test: ", test);
 
-    if (test.includes("type")) {
-      const jsonObject = JSON.parse(test);
-      console.log(jsonObject.type);
-      // console.log(jsonObject.message);
+//     if (test.includes("type")) {
+//       const jsonObject = JSON.parse(test);
+//       console.log(jsonObject.type);
+//       // console.log(jsonObject.message);
 
-      if (jsonObject.type === "text") {
-        await receiveTextFromApp(jsonObject.message);
-      } else if (jsonObject.type === "image") {
-        await base64ToNativeImage(jsonObject.message);
-      }
+//       if (jsonObject.type === "text") {
+//         await receiveTextFromApp(jsonObject.message);
+//       } else if (jsonObject.type === "image") {
+//         await base64ToNativeImage(jsonObject.message);
+//       }
+//     }
+//   });
+//   console.log("socket", req.testing);
+// });
+
+socket.on("text", async function (msg) {
+  // console.log("url: ", msg);
+  const test = await msg;
+  // console.log("test: ", test);
+
+  if (test.includes("type")) {
+    const jsonObject = JSON.parse(test);
+    // console.log(jsonObject.type);
+    // console.log(jsonObject.message);
+
+    if (jsonObject.type === "text") {
+      await receiveTextFromApp(jsonObject.message);
+    } else if (jsonObject.type === "image") {
+      await base64ToNativeImage(jsonObject.message);
     }
-  });
-  console.log("socket", req.testing);
+  }
 });
 
 async function receiveTextFromApp(msg) {
@@ -99,7 +122,29 @@ async function base64ToNativeImage(msg) {
   // console.log(imageNativeFrom64.toPNG());
 
   let downloadFolder = path.join(app.getPath("downloads"), "CopyCatSocket");
-  let socketPath = path.join(downloadFolder, "socket.png");
+  const currentDate = new Date();
+  const currentDayofMonth = currentDate.getDate();
+  const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
+  const currentYear = currentDate.getFullYear();
+  const currentHours = currentDate.getHours();
+  const currentMinutes = currentDate.getMinutes();
+  const currentSeconds = currentDate.getSeconds();
+  const dateString =
+    currentDayofMonth +
+    "-" +
+    (currentMonth + 1) +
+    "-" +
+    currentYear +
+    "--" +
+    currentHours +
+    "-" +
+    currentMinutes +
+    "-" +
+    currentSeconds;
+
+  const filename = "CopyCat-SocketReceived-" + dateString;
+
+  let socketPath = path.join(downloadFolder, filename + ".png");
 
   clipboard.writeImage(imageNativeFrom64);
   // clipboard.writeImage(nativeImage.createFromBuffer(imageNativeFrom64.toPNG()),"png");
@@ -140,20 +185,6 @@ async function base64ToNativeImage(msg) {
 appExpress.listen(8084, () => {
   console.log("listening on port 8084");
 });
-
-// const server = express();
-// server.use(BodyParser.urlencoded({ extended: true }));
-// const port = 3000;
-
-// let text;
-// let position = { x: 0, y: 0 };
-// let isPasting = false;
-
-// windowManager.requestAccessibility();
-
-// try {
-//   require("electron-reloader")(module);
-// } catch {}
 
 const token = process.env.WEB3_STORAGE_TOKEN;
 const web3storageClient = new Web3Storage({ token });
@@ -440,6 +471,15 @@ async function takeScreenshot() {
     fs.mkdirSync(downloadFolder);
   }
 
+  const bgLessDownloadFolder = path.join(
+    app.getPath("downloads"),
+    "CopyCatScreenshots",
+    "bgLess"
+  );
+  if (!fs.existsSync(bgLessDownloadFolder)) {
+    fs.mkdirSync(bgLessDownloadFolder);
+  }
+
   const currentDate = new Date();
   const currentDayofMonth = currentDate.getDate();
   const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
@@ -471,6 +511,7 @@ async function takeScreenshot() {
 
         if (["entire screen", "screen 1"].includes(sourceName)) {
           const screenshotPath = path.join(downloadFolder, filename + ".png");
+          const bgLessPath = path.join(bgLessDownloadFolder, filename + ".png");
           // crop source.thumbnail to size and position of snipWindow
           const screenShotImage = source.thumbnail;
 
@@ -482,6 +523,26 @@ async function takeScreenshot() {
             height: snipWindowRect.height,
           });
 
+          let base64Screenshot = snipWindowImage.toDataURL();
+          clipboard.writeText(base64Screenshot);
+          base64Screenshot = base64Screenshot.split(
+            "data:image/png;base64,"
+          )[1];
+
+          // console.log("base64 image: ", base64Screenshot);
+          const bgRemovedImage = await removeBackground(base64Screenshot);
+          // console.log("bgRemoved ? ", bgRemovedImage);
+
+          let splitremovedbg = bgRemovedImage.imgUri64.split(
+            "data:image/png;base64,"
+          )[1];
+          clipboard.writeText(splitremovedbg);
+
+          // received image is a base64 string so we need to convert it to a png file
+
+          const imageBuffer = Buffer.from(splitremovedbg, "base64");
+          fs.writeFileSync(bgLessPath, imageBuffer);
+
           // save full screenshot
           fs.writeFile(
             screenshotPath,
@@ -492,7 +553,14 @@ async function takeScreenshot() {
             }
           );
 
-          const snippedImage = await getFilesFromPath(screenshotPath);
+          const snippedImage = await getFilesFromPath(bgLessPath);
+
+          // Open the folder containing the image
+          shell.showItemInFolder(bgLessPath);
+
+          // const bgRemovedImage = await removeBackground(snippedImage);
+          // console.log("bgRemoved ? ", bgRemovedImage);
+
           linkImage = await uploadFile(snippedImage);
           return snipWindowImage;
         }
@@ -510,6 +578,78 @@ ipcMain.on("will-upload", async (event, payload) => {
   mainWindow.webContents.send("linkOfFile", link);
   console.log("link sent");
 });
+
+const removeBackground = async (file: any) => {
+  try {
+    const uri = `https://copycatserver.aimensahnoun.com/objectEx`;
+
+    // use axios to send image to server
+    const response1 = await axios.post(`${uri}`, {
+      base64: file,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let response = response1.data;
+
+    // let body = JSON.stringify({
+    //   requests: [
+    //     {
+    //       features: [
+    //         // { type: "LABEL_DETECTION", maxResults: 10 },
+    //         // { type: "LANDMARK_DETECTION", maxResults: 5 },
+    //         // { type: "FACE_DETECTION", maxResults: 5 },
+    //         // { type: "LOGO_DETECTION", maxResults: 5 },
+    //         // { type: "TEXT_DETECTION", maxResults: 5 },
+    //         // { type: "DOCUMENT_TEXT_DETECTION", maxResults: 5 },
+    //         { type: "SAFE_SEARCH_DETECTION", maxResults: 5 },
+    //         // { type: "IMAGE_PROPERTIES", maxResults: 5 },
+    //         // { type: "CROP_HINTS", maxResults: 5 },
+    //         { type: "WEB_DETECTION", maxResults: 5 },
+    //       ],
+    //       image: {
+    //         content: imageUrl64.split("data:image/png;base64,")[1],
+    //       },
+    //     },
+    //   ],
+    // });
+
+    // // API KEY
+
+    // let googleResponse = await fetch(
+    //   "https://vision.googleapis.com/v1/images:annotate?key=" + GOOGLE_CLOUD,
+    //   {
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //     method: "POST",
+    //     body: body,
+    //   }
+    // );
+    // let responseJson = await googleResponse.json();
+
+    // if (
+    //   responseJson.responses[0].safeSearchAnnotation.adult === "LIKELY" ||
+    //   responseJson.responses[0].safeSearchAnnotation.adult === "POSSIBLE" ||
+    //   responseJson.responses[0].safeSearchAnnotation.adult === "VERY_LIKELY"
+    // ) {
+    //   // Show a message box
+    //   dialog.showMessageBox({
+    //     type: "info",
+    //     title: "Adult Content Detected",
+    //     message: `Adult content detected. Please remove it.`,
+    //   });
+    // }
+
+    // setLabel(
+    //     responseJson.responses[0].webDetection.bestGuessLabels[0].label
+    // );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 async function uploadFile(file) {
   try {
@@ -580,106 +720,5 @@ ipcMain.on("socket-download", async (event, payload) => {
     });
   });
 });
-
-// -- Express HTTP Server
-
-// server.get("/position", (req, res) => {
-//   if (isPasting) {
-//     return;
-//   }
-//   if (!mainWindow.isFocused()) {
-//     mainWindow.show();
-//   }
-//   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-//   if (req.query.x && req.query.y) {
-//     const x = (0.5 + parseFloat(req.query.x)) * width;
-//     const y = (0.5 - parseFloat(req.query.y)) * height;
-//     if (!isNaN(x) && !isNaN(y)) {
-//       position.x = Math.round(x);
-//       position.y = Math.round(y);
-//       mainWindow.webContents.send("position", position);
-//     }
-//   }
-//   res.send("k");
-// });
-
-// server.get("/screen", (req, res) => {
-//   const img = takeScreenshot();
-//   res.set("Content-Type", "image/jpeg");
-//   res.write(img);
-//   res.end();
-//   console.log(img);
-// });
-
-// server.post("/text", (req, res) => {
-//   text = req.body.text;
-//   mainWindow.webContents.send("text", req.body);
-//   res.send("k");
-// });
-
-// server.get("/paste", async (req, res) => {
-//   console.log("paste");
-//   isPasting = true;
-//   if (!text) {
-//     console.log("ignore paste");
-//     isPasting = false;
-//     return;
-//   }
-//   // Write to clipboard.
-//   clipboard.writeText(text);
-//   // Blur electron window.
-//   mainWindow.hide();
-//   // Select window at current position.
-//   const windowActivated = activateWindowAt(position.x, position.y);
-//   // Send paste keystrokes.
-//   if (windowActivated) {
-//     const script =
-//       'tell application "System Events" to keystroke "v" using {command down}';
-//     osascript.execute(script, (err, result, raw) => {
-//       if (err) {
-//         console.error(err);
-//       }
-//     });
-//     console.log("combination sent");
-//   } else {
-//     console.log("no window at position");
-//   }
-//   // Clear text.
-//   mainWindow.webContents.send("text", { text: "" });
-//   // Resume
-//   isPasting = false;
-// });
-
-// server.listen(port, () => console.log(`Listening at http://localhost:${port}`));
-
-// function activateWindowAt(x, y) {
-//   console.log("activate window at:", x, y);
-//   const windows = windowManager.windows();
-//   windows.forEach((element) => {
-//     console.log(element);
-//   });
-//   for (const window of windows) {
-//     const bounds = window.getBounds();
-//     if (window.path.indexOf("electron") != -1) {
-//       continue;
-//     }
-//     const isTaskBarMenu = bounds.y == 0 && bounds.height == 22;
-//     if (isTaskBarMenu || !window.isVisible() || !window.isWindow()) {
-//       continue;
-//     }
-//     console.log(window.path, bounds);
-//     if (
-//       x > bounds.x &&
-//       y > bounds.y &&
-//       x < bounds.x + bounds.width &&
-//       y < bounds.y + bounds.height
-//     ) {
-//       console.log("got window:", window.path, window.getTitle());
-//       window.focus();
-//       return window;
-//     }
-//   }
-//   return false;
-// }
 
 app.commandLine.appendSwitch("no-sandbox");

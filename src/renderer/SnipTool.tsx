@@ -5,15 +5,15 @@ import appRuntime from "./modules/appRuntime";
 import closeIcon from "/closeIcon.svg";
 import { supabase } from "./supabaseClient";
 import "./app.css";
-let socket = new WebSocket("ws://localhost:8084");
+let socket = new WebSocket("ws://localhost:5000");
 socket.onopen = () => {
   console.log("connected");
   socket.send("I am connected to the socket server");
 };
 
-socket.addEventListener("message", function (event) {
-  console.log("message from server: " + event.data);
-});
+// socket.addEventListener("message", function (event) {
+//   console.log("message from server: " + event.data);
+// });
 
 socket.addEventListener("screenshot-done", function (event) {
   console.log("screenshot-done socket : ", event);
@@ -22,13 +22,13 @@ socket.onmessage = (event) => {
   console.log("message from server: " + event.data);
 };
 
-const onDownload = (url: string, urlShort: string) => {
-  appRuntime.send("socket-download", { url, urlShort });
-  appRuntime.send("download-socket-link", {
-    url,
-    urlShort,
-  });
-};
+// const onDownload = (url: string, urlShort: string) => {
+//   appRuntime.send("socket-download", { url, urlShort });
+//   appRuntime.send("download-socket-link", {
+//     url,
+//     urlShort,
+//   });
+// };
 
 function SnipTool() {
   const [colorScheme, setColorScheme] = useRecoilState(colorSchemeState);
@@ -44,7 +44,7 @@ function SnipTool() {
           onClick={async (e) => {
             appRuntime.send("screenshot", "getImageLink");
             appRuntime.subscribe("screenshot-done", async (data) => {
-              console.log("screenshot-done data: ", data);
+              // console.log("screenshot-done data: ", data);
               try {
                 const { _data, _error } = await supabase.from("images").insert({
                   title: "",
@@ -55,7 +55,7 @@ function SnipTool() {
               } catch (error) {
                 console.log(error);
               }
-              onDownload(data, data.split("/").pop());
+              // onDownload(data, data.split("/").pop());
             });
             socket.send("I am sending a screenshot");
           }}

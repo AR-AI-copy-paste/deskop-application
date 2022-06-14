@@ -1,6 +1,6 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { pageState } from "./atoms";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { pageState, explorerSearchValue } from "./atoms";
 import Gallery from "./view/Gallery";
 import Profile from "./view/Profile";
 import Settings from "./view/Settings";
@@ -11,7 +11,8 @@ import Team from "./view/Team";
 
 function MainPage() {
   const page = useRecoilValue(pageState);
-  const [search, setSearch] = React.useState("");
+
+  const [search, setSearch] = useRecoilState(explorerSearchValue);
 
   return (
     <div className="flex flex-col overflow-y-scroll">

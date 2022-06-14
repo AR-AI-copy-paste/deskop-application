@@ -1,7 +1,7 @@
 import React from "react";
 import searchIcon from "/search.svg";
-import { useRecoilValue } from "recoil";
-import { colorSchemeState } from "../atoms";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { colorSchemeState, explorerSearchValue } from "../atoms";
 interface Props {
   placeholder: string;
   setSearch: any;
@@ -9,6 +9,7 @@ interface Props {
 
 const SearchBar: React.FC<Props> = ({ placeholder, setSearch }) => {
   const colorScheme = useRecoilValue(colorSchemeState);
+  const [search, setSearchState] = useRecoilState(explorerSearchValue);
   return (
     <div className="relative w-full pt-4 pb-2">
       <div className="relative">
@@ -24,7 +25,7 @@ const SearchBar: React.FC<Props> = ({ placeholder, setSearch }) => {
             `}
           placeholder={placeholder}
           onChange={(e) => {
-            setSearch(e.target.value);
+            setSearchState(e.target.value);
           }}
         ></input>
         <img
