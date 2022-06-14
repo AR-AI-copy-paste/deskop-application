@@ -17,6 +17,12 @@
 
 A Desktop Application Built using ElectronJS,ReactJS,Typescript.Supabase, so that it would be deployable on MacOSX,Linux,Windows. Its main purpose is to connect to the backend after taking a screenshot and removing the background of said screenshot and keeping on the main object for the user to use however they might need, as well as connect to the mobile app version to be able to receive images with backgrounds removed/ or text taken from images using OCR and being able to paste it in specific coordinates on the desktop screen. The user can create an account and a profile as well as view different users public pictures on the Explore page and their personal ones on their profiles, as well as changing the window size and color schemes and their account settings on the settings page.
 
+### Demo
+
+
+https://user-images.githubusercontent.com/36904941/173040053-fb1c8bd3-f153-481f-ac1b-396b2d32fdf3.mp4
+
+
 ### Screenshots
 
 Login/SignUp Page
@@ -46,6 +52,18 @@ Account Settings Page
 Screenshot Window
 
 ![Screenshot Window](https://user-images.githubusercontent.com/36904941/168465730-91483c07-d097-4c7a-bb77-3d9ed39b0bac.jpg)
+
+Screenshot Results
+
+![NormalScreenshot](https://user-images.githubusercontent.com/36904941/171862971-3e8fbf0d-80dc-445c-b112-16ce47734942.png)
+
+![BackgroundLessScreenshot](https://user-images.githubusercontent.com/36904941/171863035-13a2ef0b-29a9-46ca-89e4-c6835284dbb5.png)
+
+### Screenshot Demo
+
+https://user-images.githubusercontent.com/36904941/173039751-4b780ff3-4d2b-438a-b33f-7c56d953b044.mp4
+
+
 
 A Few Different Color Schemes
 
