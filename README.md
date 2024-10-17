@@ -7,7 +7,7 @@
 ## Table of Contents
 
 - [Description](#description)
-- [Screenshots](#Screenshots)
+- [Screenshots](#screenshots)
 - [Usage](#usage)
 - [Contribution](#contribution)
 - [Test Instructions](#test-instructions)
@@ -15,7 +15,26 @@
 
 ### Description
 
-A Desktop Application Built using ElectronJS,ReactJS,Typescript.Supabase, so that it would be deployable on MacOSX,Linux,Windows. Its main purpose is to connect to the backend after taking a screenshot and removing the background of said screenshot and keeping on the main object for the user to use however they might need, as well as connect to the mobile app version using WebSockets to be able to receive images with backgrounds removed/ or text taken from images using OCR and being able to paste it in specific coordinates on the desktop screen. The user can create an account and a profile as well as view different users public pictures on the Explore page and their personal ones on their profiles, as well as changing the window size and color schemes and their account settings on the settings page.
+This cross-platform desktop application, built with **ElectronJS**, **ReactJS**, **TypeScript**, and **Supabase**, is deployable on **MacOS**, **Linux**, and **Windows**. Its core features include:
+
+- **Screenshot Processing**: 
+   - Capture screenshots and remove the background, leaving only the main object for further use.
+   - Connects to the backend for image processing.
+   
+- **WebSocket Integration**:
+   - Seamlessly connect to the mobile app to receive images with backgrounds removed.
+   - Extract text from images using OCR and paste it at specified coordinates on the desktop screen.
+
+- **User Features**:
+   - Account creation and profile management.
+   - View and explore public pictures on the "Explore" page.
+   - Manage personal pictures on user profiles.
+   
+- **Customization**:
+   - Adjustable window size and color schemes.
+   - Modify account settings on the Settings page.
+
+This application provides a flexible and efficient way to manage images and text across devices.
 
 ### Demo
 
